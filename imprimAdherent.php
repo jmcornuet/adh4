@@ -6,20 +6,10 @@
 	include("adherents.inc");
     $ad = new Adherent;
     $ad->id = $_POST['id'];
-    $ad->getadh();
-    $ad->getactivites();
-	function transprenom($p) {
-		$fp=explode(" ",$p);
-		for ($j=0;$j<count($fp);$j++) {
-			$p=strtolower($fp[$j]);
-			$dp=explode("-",$p);
-			for ($i=0;$i<count($dp);$i++) {$a=substr($dp[$i],0,1);$b=substr($dp[$i],1,100);$a=strtoupper($a);$dp[$i]=$a.$b;}
-			$fp[$j]=implode("-",$dp);
-		}
-		$p=implode(" ",$fp);
-		return $p;
-	}
-require('../fpdf.php');
+    $ad->getadh($tadh);
+    $ad->getactivites($tact);
+
+	require('../fpdf.php');
 	setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
 	$pdf = new FPDF();
 	$pdf->AddPage('P','A5');
@@ -112,4 +102,5 @@ require('../fpdf.php');
 		if ($ad->activite6 != "Pas d'activité") $pdf->Cell(100,10,utf8_decode($ad->activite6),0,1);
 	}
 	$pdf->Output();
+
 ?>

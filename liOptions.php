@@ -82,7 +82,7 @@
 	$optionsgroupe="";
 	for ($i=0;$i<16;$i++) $optionsgroupe = $optionsgroupe."<option value=$i>$i</option>";
 	$optionstitre='<option value="Titre">Titre</option><option value="MME">Mme</option><option value="M.">M.</option>';
-	$optionsqualite='<option value="Qualite">Qualité</option><option value="M">Mutualiste</option><option value="C">Conjoint</option>';
+	$optionsqualite='<option value="Qualite">Qualité</option><option value="M">Mutualiste</option><option value="C">Ayant droit</option>';
 	$jour=["jour","lundi","mardi","mercredi","jeudi","vendredi","tous"];
 	$optionsjour="";
 	for ($i=0;$i<count($jour);$i++) $optionsjour = $optionsjour."<option value=\"$jour[$i]\" >$jour[$i]</option>";
