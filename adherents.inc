@@ -51,6 +51,12 @@
 		public $particip4;
 		public $particip5;
 		public $particip6;
+		public $particip1a;
+		public $particip2a;
+		public $particip3a;
+		public $particip4a;
+		public $particip5a;
+		public $particip6a;
 
 		private	function arrayunique($a) {
 				$b=array();
@@ -191,12 +197,12 @@
 			$this->groupe4=$_POST['groupe4'];
 			$this->groupe5=$_POST['groupe5'];
 			$this->groupe6=$_POST['groupe6'];
-			if (isset($_POST['particip1'])) $this->particip1="P"; else $this->particip1="A";
-			if (isset($_POST['particip2'])) $this->particip2="P"; else $this->particip2="A";
-			if (isset($_POST['particip3'])) $this->particip3="P"; else $this->particip3="A";
-			if (isset($_POST['particip4'])) $this->particip4="P"; else $this->particip4="A";
-			if (isset($_POST['particip5'])) $this->particip5="P"; else $this->particip5="A";
-			if (isset($_POST['particip6'])) $this->particip6="P"; else $this->particip6="A";
+			if (isset($_POST['p1p'])) $this->particip1="P"; else if (isset($_POST['p1a'])) $this->particip1="A";else $this->particip1="";
+			if (isset($_POST['p2p'])) $this->particip2="P"; else if (isset($_POST['p2a'])) $this->particip2="A";else $this->particip2="";
+			if (isset($_POST['p3p'])) $this->particip3="P"; else if (isset($_POST['p3a'])) $this->particip3="A";else $this->particip3="";
+			if (isset($_POST['p4p'])) $this->particip4="P"; else if (isset($_POST['p4a'])) $this->particip4="A";else $this->particip4="";
+			if (isset($_POST['p5p'])) $this->particip5="P"; else if (isset($_POST['p5a'])) $this->particip5="A";else $this->particip5="";
+			if (isset($_POST['p6p'])) $this->particip6="P"; else if (isset($_POST['p6a'])) $this->particip6="A";else $this->particip6="";
 		}
 		public function getcodes($tact) {
 			$M = new MConf;
