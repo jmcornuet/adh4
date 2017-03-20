@@ -139,14 +139,12 @@
 		    $reponse=$M->querydb($sql);
 			$donnees=$reponse->fetch();
 			$sql = "UPDATE $tadh SET";
-
 			$this->nom = transprenom($this->nom);
 			$this->prenom = transprenom($this->prenom);
 			$this->nomjf = transprenom($this->nomjf);
 			$this->numeroSS = compacte($this->numeroSS);
 			$this->telephone = compacte($this->telephone);
 			$this->portable = compacte($this->portable);
-
 			if ($this->titre != $donnees['titre']) $sql .=" titre='$this->titre',";
 			if ($this->qualite != $donnees['qualite']) $sql .=" qualite='$this->qualite',";
 			if ($this->nom != $donnees['nom']) $sql .=" nom='".addslashes($this->nom)."',";
@@ -243,6 +241,14 @@
 			if (isset($_POST['p4p'])) $this->particip4="P"; else if (isset($_POST['p4a'])) $this->particip4="A";else $this->particip4="";
 			if (isset($_POST['p5p'])) $this->particip5="P"; else if (isset($_POST['p5a'])) $this->particip5="A";else $this->particip5="";
 			if (isset($_POST['p6p'])) $this->particip6="P"; else if (isset($_POST['p6a'])) $this->particip6="A";else $this->particip6="";
+			if ((isset($_POST['affich']))&&($_POST['affich']=="on")) {
+				if (isset($_POST['particip1'])) $this->particip1="P";else $this->particip1="A";
+				if (isset($_POST['particip2'])) $this->particip2="P";else $this->particip2="A";
+				if (isset($_POST['particip3'])) $this->particip3="P";else $this->particip3="A";
+				if (isset($_POST['particip4'])) $this->particip4="P";else $this->particip4="A";
+				if (isset($_POST['particip5'])) $this->particip5="P";else $this->particip5="A";
+				if (isset($_POST['particip6'])) $this->particip6="P";else $this->particip6="A";
+			}
 		}
 		public function getcodes($tact) {
 			$M = new MConf;
@@ -263,7 +269,9 @@
     		if ($this->activite4 != "Pas d'activité") {array_push($act,$this->activite4);array_push($gro,$this->groupe4);array_push($par,$this->particip4);}
     		if ($this->activite5 != "Pas d'activité") {array_push($act,$this->activite5);array_push($gro,$this->groupe5);array_push($par,$this->particip5);}
     		if ($this->activite6 != "Pas d'activité") {array_push($act,$this->activite6);array_push($gro,$this->groupe6);array_push($par,$this->particip6);}
-
+    		//print_r($act);echo"<br>";
+    		//print_r($gro);echo"<br>";
+    		//print_r($par);echo"<br>";
     		$nact=count($act);
     		$this->activites="";
 		    for ($i=0;$i<$nact;$i++) {
