@@ -28,6 +28,7 @@
         $ad->activite5=$activite[intval($ad->activite5)];
         $ad->activite6=$activite[intval($ad->activite6)];
         $ad->getcodes($tact);
+        //echo $ad->activites."<br>";
 	    if ($ad->modifie($tadh)) echo "</br></br><div class='alerte'>La fiche de $ad->prenom $ad->nom a bien été modifiée dans la base de données </div>";
 	    else echo "</br></br><div class='alerte'>La fiche de $ad->prenom $ad->nom n'a pas pu être modifiée dans la base de données !!!</div>";
 	?>

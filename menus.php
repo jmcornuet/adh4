@@ -28,7 +28,7 @@
 				<li><a href="chercheActivite.php">Chercher</a></li>
 				<li><a href="modifierActivite.php">Modifier</a></li>
 				<?php 
-					if ($niveau>0) echo '<li><a href="#" style="background-color:#ED1E55">Créer</a></li>'; 
+					if ($niveau>1) echo '<li><a href="#" style="background-color:#ED1E55">Créer</a></li>'; 
 					else echo '<li><a href="nouvelActivite.php">Créer</a></li>';
 				?>				
 			</ul>
@@ -39,7 +39,7 @@
 				<li><a href="chercheAnimateur.php">Chercher</a></li>
 				<li><a href="modifierAnimateur.php">Modifier</a></li>
 				<?php
-					if ($niveau>0) echo '<li><a href="#" style="background-color:#ED1E55">Créer</a></li>';
+					if ($niveau>1) echo '<li><a href="#" style="background-color:#ED1E55">Créer</a></li>';
 					else echo '<li><a href="nouvelAnimateur.php">Créer</a></li>';
 				?>				
 			</ul>
@@ -50,8 +50,6 @@
 				<li><a href="#">Planning</a></li>
 				<li><a href="#">Statistiques</a></li>
 				<li><a href="participants.php">Participants</a></li>
-<!--				<li><a href="exportadh.php">Exportation</a></li>
-				<li><a href="importadh.php">Importation</a></li> -->
 			</ul>
 		</li>
 		<li>

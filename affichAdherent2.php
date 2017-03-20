@@ -190,7 +190,7 @@
 					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="groupe6" class="selectoption"><?php echo $optionsgroupe6 ?></select></td>
 					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="particip6" value="" <?php echo $particip6 ?> ></td>
 				</tr>
-				<tr><td> </td></tr>
+				<tr><td><input type="hidden" name="affich" value="on"</td></tr>
 				<tr>
 					<td> </td>
 					<td> </td>
