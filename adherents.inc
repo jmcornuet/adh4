@@ -11,6 +11,29 @@
         $p=implode(" ",$fp);
         return $p;
     }
+    function compacte($s0) {
+    	$s1="";
+    	for ($i=0;$i<strlen($s0);$i++) {
+    		$c=substr($s0,$i,1);
+    		if ($c != " ") $s1 .=$c;
+    	}
+    	return $s1;
+    }
+    function formatel($s0) {
+		if (strlen($s0)==10) {
+			$s1 = substr($s0,-10,2);
+			for ($i=4;$i>0;$i--) $s1 .=" ".substr($s0,-2*$i,2); 
+		} else $s1=$s0;
+		return $s1;
+    }
+    function formatSS($s0) {
+    	if (strlen($s0)==13) {
+    		$s1=substr($s0,-13,1)." ".substr($s0,-12,2)." ".substr($s0,-10,2)." ".substr($s0,-8,2)." ".substr($s0,-6,3)." ".substr($s0,-3,3);
+    	} else if (strlen($s0)==15) {
+    		$s1=substr($s0,-15,1)." ".substr($s0,-14,2)." ".substr($s0,-12,2)." ".substr($s0,-10,2)." ".substr($s0,-8,3)." ".substr($s0,-5,3)." ".substr($s0,-2,2);
+    	} else $s1=$s0;
+    	return $s1;
+    }
 	class Adherent {
 		public $id;
 		public $titre;
@@ -88,11 +111,11 @@
 				$this->compadresse=$donnees['compadresse'];
 				$this->codepostal=$donnees['codepostal'];
 				$this->ville=$donnees['ville'];
-				$this->telephone=$donnees['telephone'];
-				$this->portable=$donnees['portable'];
+				$this->telephone=formatel($donnees['telephone']);
+				$this->portable=formatel($donnees['portable']);
 				$this->courriel=$donnees['courriel'];
 				$this->numMGEN=$donnees['numMGEN'];
-				$this->numeroSS=$donnees['numeroSS'];
+				$this->numeroSS=formatSS($donnees['numeroSS']);
 				$this->profession=$donnees['profession'];
 				$this->assurance=$donnees['assurance'];
 				$this->cotisation=$donnees['cotisation'];
@@ -112,21 +135,38 @@
 		}
 		public function modifie($tadh) {
 			$M = new MConf;
-			$this->nom = addslashes(strtoupper($this->nom));
-	    	$this->prenom = addslashes(transprenom($this->prenom));
-	    	$this->nomjf = addslashes(strtoupper($this->nomjf));
-	    	$this->adresse = addslashes(strtoupper($this->adresse));
-	    	$this->compadresse = addslashes(strtoupper($this->compadresse));
-	    	$this->ville = addslashes(strtoupper($this->ville));
-	    	$this->assurance = addslashes(strtoupper($this->assurance));
-	    	$this->profession = addslashes($this->profession);
-	    	$sql = "UPDATE $tadh SET titre='$this->titre', qualite='$this->qualite', nom='$this->nom', prenom='$this->prenom', adresse='$this->adresse', codepostal=$this->codepostal, ville='$this->ville', numMGEN='$this->numMGEN', numeroSS='$this->numeroSS', profession='$this->profession', assurance='$this->assurance', cotisation=$this->cotisation, premannee=$this->premannee,activites='$this->activites',";
-	
-	    	if (strlen($this->nomjf)>0) {$sql .=" nomjf='$this->nomjf',";}
-	    	if (strlen($this->telephone)>0) {$sql .="telephone='$this->telephone',";}
-	    	if (strlen($this->portable)>0) {$sql .="portable='$this->portable',";}
-	    	if (strlen($this->compadresse)>0) {$sql .="compadresse='$this->compadresse',";}
-	    	if (strlen($this->courriel)>0) {$sql .="courriel='$this->courriel',";}
+			$sql = "SELECT * FROM $tadh WHERE id=$this->id";
+		    $reponse=$M->querydb($sql);
+			$donnees=$reponse->fetch();
+			$sql = "UPDATE $tadh SET";
+
+			$this->nom = transprenom($this->nom);
+			$this->prenom = transprenom($this->prenom);
+			$this->nomjf = transprenom($this->nomjf);
+			$this->numeroSS = compacte($this->numeroSS);
+			$this->telephone = compacte($this->telephone);
+			$this->portable = compacte($this->portable);
+
+			if ($this->titre != $donnees['titre']) $sql .=" titre='$this->titre',";
+			if ($this->qualite != $donnees['qualite']) $sql .=" qualite='$this->qualite',";
+			if ($this->nom != $donnees['nom']) $sql .=" nom='".addslashes($this->nom)."',";
+			if ($this->prenom != $donnees['prenom']) $sql .=" prenom='".addslashes($this->prenom)."',";
+			if ($this->nomjf != $donnees['nomjf']) $sql .=" nomjf='".addslashes($this->nomjf)."',";
+			if ($this->adresse != $donnees['adresse']) $sql .=" adresse='".addslashes($this->adresse)."',";
+			if ($this->compadresse != $donnees['compadresse']) $sql .=" compadresse='".addslashes($this->compadresse)."',";
+			if ($this->ville != $donnees['ville']) $sql .=" ville='".addslashes($this->ville)."',";
+			if ($this->codepostal != $donnees['codepostal']) $sql .=" codepostal='$this->codepostal',";
+			if ($this->assurance != $donnees['assurance']) $sql .=" assurance='".addslashes($this->assurance)."',";
+			if ($this->profession != $donnees['profession']) $sql .=" profession='".addslashes($this->profession)."',";
+			if ($this->numMGEN != $donnees['numMGEN']) $sql .=" numMGEN='$this->numMGEN',";
+			if ($this->numeroSS != $donnees['numeroSS']) $sql .=" numeroSS='$this->numeroSS',";
+			if ($this->cotisation != $donnees['cotisation']) $sql .=" cotisation=$this->cotisation,";
+			if ($this->premannee != $donnees['premannee']) $sql .=" premannee=$this->premannee,";
+			if ($this->activites != $donnees['activites']) $sql .=" activites='$this->activites',";
+			if ($this->telephone != $donnees['telephone']) $sql .=" telephone='$this->telephone',";
+			if ($this->portable != $donnees['portable']) $sql .=" portable='$this->portable',";
+			if ($this->courriel != $donnees['courriel']) $sql .=" courriel='$this->courriel',";
+			if ($this->sortie != $donnees['sortie']) $sql .=" sortie='$this->sortie',";
 	    	$sql=substr($sql,0,-1)." WHERE id=$this->id";
 	    	//echo $sql;
 		    $reponse=$M->querydb($sql);
@@ -149,10 +189,10 @@
 	    	$sql0 .="titre,qualite,nom,prenom,adresse,codepostal,ville,";
 	    	$sql1 .="'$this->titre','$this->qualite','$this->nom','$this->prenom','$this->adresse',$this->codepostal,'$this->ville',";
 	    	$sql0 .="numMGEN,assurance,numeroSS,profession,premannee,activites,";
-	    	$sql1 .="$this->numMGEN,'$this->assurance','$this->numeroSS','$this->profession',$this->premannee,'$this->activites',";
+	    	$sql1 .="$this->numMGEN,'$this->assurance','".compacte($this->numeroSS)."','$this->profession',$this->premannee,'$this->activites',";
 	    	if (strlen($this->nomjf)>0) {$sql0 .="nomjf,";$sql1 .="'$this->nomjf',";}
-	    	if (strlen($this->telephone)>0) {$sql0 .="telephone,";$sql1 .="'$this->telephone',";}
-	    	if (strlen($this->portable)>0) {$sql0 .="portable,";$sql1 .="'$this->portable',";}
+	    	if (strlen($this->telephone)>0) {$sql0 .="telephone,";$sql1 .="'".compacte($this->telephone)."',";}
+	    	if (strlen($this->portable)>0) {$sql0 .="portable,";$sql1 .="'".compacte($this->portable)."',";}
 	    	if (strlen($this->compadresse)>0) {$sql0 .="compadresse,";$sql1 .="'$this->compadresse',";}
 	    	if (strlen($this->courriel)>0) {$sql0 .="courriel,";$sql1 .="'$this->courriel',";}
 	    	$sql0=substr($sql0,0,-1).")";
@@ -324,11 +364,11 @@
 				$a->compadresse=$donnees['compadresse'];
 				$a->codepostal=$donnees['codepostal'];
 				$a->ville=$donnees['ville'];
-				$a->telephone=$donnees['telephone'];
-				$a->portable=$donnees['portable'];
+				$a->telephone=formatel($donnees['telephone']);
+				$a->portable=formatel($donnees['portable']);
 				$a->courriel=$donnees['courriel'];
 				$a->numMGEN=$donnees['numMGEN'];
-				$a->numeroSS=$donnees['numeroSS'];
+				$a->numeroSS=formatSS($donnees['numeroSS']);
 				$a->profession=$donnees['profession'];
 				$a->assurance=$donnees['assurance'];
 				$a->cotisation=$donnees['cotisation'];
