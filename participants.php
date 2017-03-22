@@ -19,7 +19,7 @@
 		include("menus.php");
 		include("liOptions.php"); 
 	?>
-	<div class="titre1">Recherche d'une activité dans la base de données</div>
+	<div class="titre1">Liste des participants : choix de l'activité et du groupe</div>
 	<div class="champ">
 		<fieldset class="champemprunteurs">
 			<form name="formactivite" method="post" action="listepart.php"> 
@@ -32,6 +32,7 @@
 						<td><select id="groupe" name="groupe"><?php echo $optionsgroupe ?> </select></td>
 					</tr>
 				</table>
+				<br><br>
 				<input type="submit" value="Afficher la liste des participants"> 
 			</form> 
 		</fieldset>
