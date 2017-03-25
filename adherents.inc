@@ -55,6 +55,7 @@
 		public $cotisation;
 		public $premannee;
 		public $sortie;
+		public $specialite;
 		public $activites;
 		public $activite1;
 		public $activite2;
@@ -117,6 +118,7 @@
 				$this->numMGEN=$donnees['numMGEN'];
 				$this->numeroSS=formatSS($donnees['numeroSS']);
 				$this->profession=$donnees['profession'];
+				$this->specialite=$donnees['specialite'];
 				$this->assurance=$donnees['assurance'];
 				$this->cotisation=$donnees['cotisation'];
 				$this->premannee=$donnees['premannee'];
@@ -156,6 +158,7 @@
 			if ($this->codepostal != $donnees['codepostal']) $sql .=" codepostal='$this->codepostal',";
 			if ($this->assurance != $donnees['assurance']) $sql .=" assurance='".addslashes($this->assurance)."',";
 			if ($this->profession != $donnees['profession']) $sql .=" profession='".addslashes($this->profession)."',";
+			if ($this->specialite != $donnees['specialite']) $sql .=" specialite='".addslashes($this->specialite)."',";
 			if ($this->numMGEN != $donnees['numMGEN']) $sql .=" numMGEN='$this->numMGEN',";
 			if ($this->numeroSS != $donnees['numeroSS']) $sql .=" numeroSS='$this->numeroSS',";
 			if ($this->cotisation != $donnees['cotisation']) $sql .=" cotisation=$this->cotisation,";
@@ -182,6 +185,7 @@
 	    	$this->ville = addslashes(strtoupper($this->ville));
 	    	$this->assurance = addslashes(strtoupper($this->assurance));
 	    	$this->profession = addslashes($this->profession);
+	    	$this->specialite = addslashes($this->specialite);
 	    	$sql0 = "INSERT INTO $tadh (";
 	    	$sql1 = " VALUES (";
 	    	$sql0 .="titre,qualite,nom,prenom,adresse,codepostal,ville,";
@@ -193,6 +197,7 @@
 	    	if (strlen($this->portable)>0) {$sql0 .="portable,";$sql1 .="'".compacte($this->portable)."',";}
 	    	if (strlen($this->compadresse)>0) {$sql0 .="compadresse,";$sql1 .="'$this->compadresse',";}
 	    	if (strlen($this->courriel)>0) {$sql0 .="courriel,";$sql1 .="'$this->courriel',";}
+	    	if (strlen($this->specialite)>0) {$sql0 .="specialite,";$sql1 .="'$this->specialite'";}
 	    	$sql0=substr($sql0,0,-1).")";
 	    	$sql1=substr($sql1,0,-1).")";
 			$sql=$sql0.$sql1;
@@ -218,6 +223,7 @@
 			$this->ville = $_POST['ville'];
 			$this->courriel = $_POST['courriel'];
 			$this->profession = $_POST['profession'];
+			$this->specialite = $_POST['specialite'];
 			$this->assurance = $_POST['assurance'];
 			$this->numeroSS = $_POST['numeroSS'];
 			$this->cotisation = $_POST['cotisation'];
@@ -378,6 +384,7 @@
 				$a->numMGEN=$donnees['numMGEN'];
 				$a->numeroSS=formatSS($donnees['numeroSS']);
 				$a->profession=$donnees['profession'];
+				$a->specialite=$donnees['specialite'];
 				$a->assurance=$donnees['assurance'];
 				$a->cotisation=$donnees['cotisation'];
 				$a->premannee=$donnees['premannee'];

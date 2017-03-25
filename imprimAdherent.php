@@ -14,10 +14,10 @@
 	$pdf = new FPDF();
 	$pdf->AddPage('P','A5');
 	$pdf->SetFont('Times','I',10);
-	$pdf->Cell(130,6,utf8_decode('Club des retraités de la MGEN section de Paris'),0,1,'C');
+	$pdf->Cell(80,6,utf8_decode('Club des retraités de la MGEN section de Paris'),0,0,'L');
 
 	if($_POST['forme']=="Simple") {
-		$pdf->Cell(100,6,utf8_decode('Fiche simple imprimée le '.strftime("%d %B %Y")),0,1,'');		
+		$pdf->Cell(70,6,utf8_decode('Fiche imprimée le '.strftime("%d %B %Y")),0,1,'L');		
 		$ad->nom = strtoupper($ad->nom);
 		$ad->prenom =transprenom($ad->prenom);
 		if ($ad->qualite=="M") $ad->numMGEN =$ad->numMGEN."A"; else $ad->numMGEN =$ad->numMGEN."C"; 
@@ -52,7 +52,7 @@
 
 	}
 	if($_POST['forme']=="Complet") {
-		$pdf->Cell(100,6,utf8_decode('Fiche complète imprimée le '.strftime("%d %B %Y")),0,1,'');		
+		$pdf->Cell(70,6,utf8_decode('Fiche imprimée le '.strftime("%d %B %Y")),0,1,'L');		
 		$nom = strtoupper($ad->nom);
 		$prenom =transprenom($ad->prenom);
 		$numMGEN = $ad->numMGEN;
@@ -68,7 +68,7 @@
 
 		$pdf->Ln(10);
 		$pdf->Cell(50,6,utf8_decode("Adresse : "),0,0);
-		$pdf->Cell(50,6,utf8_decode($ad->adresse),0,1);
+		$pdf->Cell(50,6,utf8_decode($ad->adresse."  ".$ad->compadresse),0,1);
 		$adresse = $ad->codepostal."  ".$ad->ville;
 		$pdf->Cell(50,6,utf8_decode(" "),0,0);
 		$pdf->Cell(50,6,$adresse,0,1);
@@ -82,13 +82,18 @@
 		$pdf->Cell(100,6,'  ',0,1);
 		$pdf->SetFont('Arial','',12);
 		$pdf->Cell(50,6,utf8_decode("Profession : "),0,0);
-		$pdf->Cell(50,6,$ad->profession,0,1);
+		$pdf->Cell(50,6,utf8_decode($ad->profession),0,1);
+		$pdf->Cell(50,6,utf8_decode("Spécialité : "),0,0);
+		$pdf->Cell(50,6,utf8_decode($ad->specialite),0,1);
+
 		$pdf->Cell(50,6,utf8_decode("Numéro SS : "),0,0);
 		$pdf->Cell(50,6,$ad->numeroSS,0,1);
 		$pdf->Cell(50,6,utf8_decode("Assurance : "),0,0);
 		$pdf->Cell(50,6,$ad->assurance,0,1);
 		$pdf->Cell(50,6,utf8_decode("Première inscription : "),0,0);
 		$pdf->Cell(50,6,$ad->premannee,0,1);
+		$pdf->Cell(50,6,utf8_decode("Sortie du club : "),0,0);
+		$pdf->Cell(50,6,utf8_decode($ad->sortie),0,1);
 		$pdf->Cell(100,6,"  ",0,1);
 		$pdf->SetFont('Arial','B',16);
 		$pdf->Cell(50,10,"ACTIVITES 2016-2017",0,0);

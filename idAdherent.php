@@ -140,8 +140,13 @@
         }
         if ($ad->profession!="profession") {
         	if (strlen($sql)<1) $sql =$mes0." profession = '".addslashes($ad->profession)."'";
-        	else $sql = $sql." AND profession LIKE '%".addslashes($ad->profession)."%'";
+        	else $sql = $sql." AND profession = '".addslashes($ad->profession)."'";
             $critere .=" (profession = ".$ad->profession.")";
+        }
+        if ($ad->specialite!="") {
+            if (strlen($sql)<1) $sql =$mes0." specialite LIKE '%".addslashes($ad->specialite)."%'";
+            else $sql = $sql." AND specialite LIKE '%".addslashes($ad->specialite)."%'";
+            $critere .=" (specialite contient ".$ad->specialite.")";
         }
 	    if (strlen($ad->numMGEN)>0) {
             if (strlen($sql)<1) $sql =$mes0." numMGEN = '".$ad->numMGEN."'";

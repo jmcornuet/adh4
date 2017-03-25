@@ -76,17 +76,26 @@
 					<td><label for "assurance">Assurance :</label></td>
 					<td><input id="assurance" type="text" size=30 name="assurance"></td>
 					<td> </td>
-					<td><label for="numeroSS">Numéro S.S. : </label>  </td>
-					<td><input id="numeroSS" type="text" name="numeroSS" size=25></td>
+					<td><label for "specialite">Spécialité :</label></td>
+					<td><input name="specialite" type="text" size=30></td>
 				</tr>
 				<tr>					
+					<td> </td>			
+					<td><label for="numeroSS">Numéro S.S. : </label>  </td>
+					<td><input id="numeroSS" type="text" name="numeroSS" size=25></td>
 					<td> <input type="hidden" name="cotisation" value=""></td>
 					<td><label for="cotisation">Cotisation : </label></td></td>
 					<td><input id="cotisation" type="radio" name="cotisation" value="P">A jour &nbsp;&nbsp;&nbsp;
 					<input id="cotisation" type="radio" name="cotisation" value="A">En attente </td>
+				</tr>
+				<tr>
 					<td> </td>			
 					<td><label for="premannee">Adhérent depuis : </label></td>
 					<td><input id="premannee" name="premannee" type="text" size=10></td>
+					<td> </td>			
+					<td><label for="sortie">Sortie du club : </label></td>
+					<td><input name="sortie" type="text" size=30></td>
+
 				</tr>
 			</table> 
 			</br>

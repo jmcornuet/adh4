@@ -145,16 +145,23 @@
 					<td> </td>			
 					<td><label for "assurance">Assurance :</label></td>
 					<td><input id="assurance" type="text" size=30 name="assurance" value="<?php echo $ad->assurance ?>" ></td>
-					<td><label for="numeroSS">Numéro S.S. : </label>  </td>
-					<td><input id="numeroSS" type="text" name="numeroSS" size=25 value="<?php echo $ad->numeroSS ?>" ></td>
+					<td><label for "specialite">Spécialité</label></td>
+					<td><input name="specialite" size=30 type="text" value="<?php echo $ad->specialite ?>"></td>
 				</tr>
 				<tr>					
 					<td> </td>			
+					<td><label for="numeroSS">Numéro S.S. : </label>  </td>
+					<td><input id="numeroSS" type="text" name="numeroSS" size=25 value="<?php echo $ad->numeroSS ?>" ></td>
 					<td><label for="cotisation">Cotisation : </label></td></td>
 					<td><input id="cotisationP" type="radio" name="cotisation" value=0 <?php if ($ad->cotisation=='0') echo "checked" ?> >A jour &nbsp;&nbsp;&nbsp;
 					<input id="cotisationA" type="radio" name="cotisation" value=1 <?php if ($ad->cotisation!='0') echo "checked" ?>>En attente </td>
+				</tr>
+				<tr>					
+					<td> </td>			
 					<td><label for="premannee">Adhérent depuis : </label></td>
 					<td><input id="premannee" name="premannee" type="text" size=10 value="<?php echo $ad->premannee ?>"></td>
+					<td><label for"sortie">Sortie du club : </label></td>
+					<td><input type="text" size=30 name="sortie" value="<?php echo $ad->sortie ?>" ></td>
 				</tr>
 			</table> 
 			</br></br>
