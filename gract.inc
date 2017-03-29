@@ -103,7 +103,8 @@ require_once("MGENconfig.php");
 		}
 		public function modifie($tact) {
 			$this->activite=addslashes($this->activite);//echo $this->activite."<br>";
-			//echo $this->lieu."<br>";
+			//echo "tarifA = ".$this->tarifA."<br>";
+			//echo "tarifC = ".$this->tarifC."<br>";
 			//echo "id=".$this->id."<br>";
 			$M = new MConf; 
 			$sql = "UPDATE $tact SET activite='$this->activite', codactivite='$this->codactivite', groupe=$this->groupe,";
@@ -201,7 +202,10 @@ require_once("MGENconfig.php");
 				$a = new Gract;
 				$a->activite = enspace($_POST['activite']);//echo "activite=".$a->activite."<br>";
 				$a->codactivite = $_POST['codactivite'];//echo "code=".$a->codactivite."<br>";
-				$a->animateur = $_POST[$an];//echo "animateur=".$a->animateur."<br>";
+				$a->animateur = $_POST[$an];
+				$a->tarifA = $_POST['tarifA'];
+				$a->tarifC = $_POST['tarifC'];
+				//echo "animateur=".$a->animateur."<br>";
 				//$a->animateur = $animateur[$_POST['animateur'.strval($i)]];
 				$a->groupe = $_POST['groupe'.strval($i)];//echo "groupe=".$a->groupe."<br>";
 				$a->lieu = $_POST['lieu'.strval($i)];
@@ -215,7 +219,7 @@ require_once("MGENconfig.php");
 			$this->n = count($this->gract);
 		}
 		public function getid() {
-			echo "dans getid<br>";
+			//echo "dans getid<br>";
 			$i=0;$trouve=false;
       		while ((!$trouve)&&($i<$this->n)) {
             	$trouve=(($this->gract[$i]->activite==$this->gract[$i]->activite0)&&($this->gract[$i]->groupe==$this->gract[$i]->groupe0));

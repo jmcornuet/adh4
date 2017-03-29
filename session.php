@@ -6,4 +6,5 @@
     $nom=$_SESSION['nom'];
 	$niveau=$_SESSION['niveau'];
 	$debut=$_SESSION['debut'];
+	$version = $_SESSION['version'];
 ?>

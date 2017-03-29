@@ -41,7 +41,7 @@ if ($login!="" AND $pass!="") {
 		$_SESSION['nom']=$donnees['nom'];
 		setlocale(LC_TIME,'fr_FR.utf8','fra','fr_FR.ISO8859-1');
 		$_SESSION['debut']=utf8_encode(strftime("%d/%m/%g_%H:%M:%S"));
-
+		$_SESSION['version'] = "0.0.1";
 		$M->close();
 ?>	
 	<form name='demarre' method='post' action='club0.php'>	</form>

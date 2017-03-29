@@ -3,7 +3,9 @@
 	//setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
 	setlocale(LC_TIME,'fr_FR.utf8','fra','fr_FR.ISO8859-1');
 	echo strftime("%A %d %B %Y");
-	echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$prenom." aux commandes !";
+	//echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$prenom." aux commandes !";
+	echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Version ".$version;
+
 	$anencours = strftime("%Y");
 	?>
 </div>

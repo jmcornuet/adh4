@@ -2,6 +2,7 @@
     session_start();
     require_once("session.php");
     if (!$prenom) die();
+ob_implicit_flush(true);
 ?>
 <!DOCTYPE html>
 <html>
@@ -16,34 +17,36 @@
 </head>
 <body onload="resizemenu()" onresize="resizemenu()">
 	<?php 
+        include("animateurs.inc");
         include("menus.php"); 
 	    include("gract.inc");
-        include("animateurs.inc");
         include("liOptions.php");
         $postidgr=$_POST['idgroupes'];
         $idgroupes=explode(";",$postidgr);//echo $idgroupes[0]."  ".$idgroupes[1]."<br>";
-        $postgr=$_POST['groupes'];
+        $postgr=$_POST['groupes'];//echo $postgr."<br>";
         $tarifA=$_POST['tarifA'];
-        $tarifC=$_POST['tarifC'];
+        $tarifC=$_POST['tarifC'];//echo $tarifA."  ".$tarifC."<br>";
         $groupes = explode(";",$postgr);
         $ng = count($groupes);if ($ng<1) $ng=1;
         $ga = new Gracts;
         $ga->gract=array($ng);
         $ga->getpost($ng);//echo "après getpost<br>";
-        $ani = new Animateurs;
-        $ani->cree();$iact=array($ng);
-        for ($i=0;$i<$ng;$i++) {
-            $iact[$i]=$ga->gract[$i]->activite;
+        $M = new MConf;
+        for ($i=0;$i<$ng;$i++) {        
+            $ga->gract[$i]->animateur=$animateur[$ga->gract[$i]->animateur];
+            $w=explode(" ",$ga->gract[$i]->animateur);
+            $sql = "SELECT * FROM $tani WHERE prenom='".$w[0]."' AND nom='".$w[1]."'";//echo $sql."<br>";
+            $reponse = $M->querydb($sql);
+            if ($donnees=$reponse->fetch()) $ga->gract[$i]->idanimateur=$donnees['id'];
             $ga->gract[$i]->activite=$activite[intval($ga->gract[$i]->activite)];
-            $ga->gract[$i]->animateur = $animateur[intval($ga->gract[$i]->animateur)];
-            $ga->gract[$i]->idanimateur=$ani->getid($ga->gract[$i]->animateur);
-            $ga->gract[$i]->tarifA=$tarifA;
-            $ga->gract[$i]->tarifC=$tarifC;
-         }
+
+        }
+        $M=null;
         if ($_POST['modif']) {
+            echo "MODIFICATION $ng<br>";
                 $rep=true;
                 for ($i=0;$i<$ng;$i++) {
-                    $rep = ($rep and $ga->gract[$i]->modifie());
+                    $rep = ($rep and $ga->gract[$i]->modifie($tact));
                 }
     	    if ($rep) echo "</br></br><div class='alerte'>L'activité $ga->activite a bien été modifiée dans la base de données </div>";
     	    else echo "</br></br><div class='alerte'>L'activité $ga->activite n'a pas pu être modifiée dans la base de données !!!</div>";
