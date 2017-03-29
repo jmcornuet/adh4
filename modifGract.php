@@ -43,7 +43,7 @@ ob_implicit_flush(true);
         }
         $M=null;
         if ($_POST['modif']) {
-            echo "MODIFICATION $ng<br>";
+            //echo "MODIFICATION $ng<br>";
                 $rep=true;
                 for ($i=0;$i<$ng;$i++) {
                     $rep = ($rep and $ga->gract[$i]->modifie($tact));
