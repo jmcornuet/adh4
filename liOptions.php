@@ -81,6 +81,9 @@
 	for ($i=0;$i<count($profession);$i++) $optionsprofession = $optionsprofession."<option value=\"$profession[$i]\" >$profession[$i]</option>";
 	$optionsgroupe="";
 	for ($i=0;$i<16;$i++) $optionsgroupe = $optionsgroupe."<option value=$i>$i</option>";
+	$optionsgroupe1="";
+	for ($i=1;$i<16;$i++) $optionsgroupe1 = $optionsgroupe1."<option value=$i>$i</option>";
+
 	$optionstitre='<option value="Titre">Titre</option><option value="MME">Mme</option><option value="M.">M.</option>';
 	$optionsqualite='<option value="Qualite">Qualité</option><option value="M">Mutualiste</option><option value="C">Ayant droit</option>';
 	$jour=["jour","lundi","mardi","mercredi","jeudi","vendredi","tous"];

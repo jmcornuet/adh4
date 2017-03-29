@@ -28,6 +28,11 @@
 	$sql = "SELECT * FROM $tadh WHERE activites LIKE '$req' ORDER BY nom";
 	$ad = new Adherents;
 	$ad->cherche($sql,$tact);
+	$nadh=0;$ncon=0;
+	for ($i=0;$i<$ad->n;$i++) {
+		if ($ad->adh[$i]->qualite=="M") $nadh++;
+		else $ncon++;
+	}
 
 require('../fpdf.php');
 	setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
@@ -49,12 +54,12 @@ require('../fpdf.php');
 		$pdf->Cell(50,8,"Lieu : ".$gra->lieu,0,1,"L");
 		$pdf->Cell(80,8,"Responsable :",0,0,"L");
 		$pdf->Cell(130,8,"",0,0);
-		$pdf->Cell(50,8,"Participation M. .............",0,1,"L");
+		$pdf->Cell(50,8,"Participation Mutualistes : ".$nadh,0,1,"L");
 		$pdf->SetFont('Arial','B',14);
 		$pdf->Cell(50,8,utf8_decode("Codes- P = Présent"),0,0,'L');
 		$pdf->SetFont('Arial','',12);
 		$pdf->Cell(170,8,"",0,0);
-		$pdf->Cell(50,8,"             C. .............",0,1,'L');
+		$pdf->Cell(50,8,"             Ayant-droit : ".$ncon,0,1,'L');
 		$pdf->SetFont('Arial','B',14);
 		$pdf->Cell(17,8,"",0,0);
 		$pdf->Cell(40,8,utf8_decode("A = Absent"),0,1,'L');
@@ -113,12 +118,12 @@ require('../fpdf.php');
 		$pdf->Cell(50,8,"Lieu : ".$gra->lieu,0,1,"L");
 		$pdf->Cell(80,8,"Responsable :",0,0,"L");
 		$pdf->Cell(230,8,"",0,0);
-		$pdf->Cell(50,8,"Participation M. .............",0,1,"L");
+		$pdf->Cell(50,8,"Participation Mutualistes : ".$nadh,0,1,"L");
 		$pdf->SetFont('Arial','B',19);
 		$pdf->Cell(50,8,utf8_decode("Codes- P = Présent"),0,0,'L');
 		$pdf->SetFont('Arial','',17);
 		$pdf->Cell(275,8,"",0,0);
-		$pdf->Cell(50,8,"             C. .............",0,1,'L');
+		$pdf->Cell(50,8,"             Ayant-droit : ".$ncon,0,1,'L');
 		$pdf->SetFont('Arial','B',19);
 		$pdf->Cell(24,8,"",0,0);
 		$pdf->Cell(40,8,utf8_decode("A = Absent"),0,1,'L');

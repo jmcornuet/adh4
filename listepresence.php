@@ -70,7 +70,7 @@
 					<tr><td></td><td></td></tr>
 					<tr> 
 						<td><label for "groupe" style="float:right">Groupe :</label></td>
-						<td><select id="groupe" name="groupe"><?php echo $optionsgroupe ?> </select></td>
+						<td><select id="groupe" name="groupe"><?php echo $optionsgroupe1 ?> </select></td>
 					</tr>
 					<tr><td></td><td></td></tr>
 					<tr>

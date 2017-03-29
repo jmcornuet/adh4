@@ -29,7 +29,7 @@
 						<td><select id="activite" name="activite"><?php echo $optionsactivite ?> </select></td>
 						<td>   </td>
 						<td><label for "groupe">Groupe :</label></td>
-						<td><select id="groupe" name="groupe"><?php echo $optionsgroupe ?> </select></td>
+						<td><select id="groupe" name="groupe"><?php echo $optionsgroupe1 ?> </select></td>
 					</tr>
 				</table>
 				<br><br>
