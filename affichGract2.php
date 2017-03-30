@@ -49,21 +49,31 @@
         $sql = "SELECT * FROM $tact WHERE activite='".addslashes($gract->activite)."' ORDER BY groupe";
         $gracts = new Gracts;
         $gracts->cherche($sql);
-        $optionsgr=array();$optionsli=array();$optionsjo=array();$optionsde=array();$optionsfi=array();$optionsan=array();
+        $optionsgr=array();$optionsli=array();$optionsjo=array();$optionsde=array();$optionsfi=array();$optionsan=array();$optionsre=array();
         $n=0;$idgroupe=array();$groupe=array();
         for ($i=0;$i<$gracts->n;$i++) {
             if ($gracts->gract[$i]->idanimateur>0) {
+                if ($gracts->gract[$i]->idresponsable) {
+                    $sql = "SELECT * FROM $tadh WHERE id=$gracts->gract[$i]->idresponsable";
+                    $reponse = $N->querydb($sql);
+                    if ($donnees = $reponse->fetch()) $responsable = $donnees['prenom']." ".$donnees['nom'];
+                    else $responsable = "Responsable";
+                } else $responsable = "Responsable";
+                //echo $responsable."<br>";
                 array_push($optionsgr, putSelected2($optionsgroupe,$gracts->gract[$i]->groupe));
                 array_push($optionsli, putSelected($optionslieu,$gracts->gract[$i]->lieu));
                 array_push($optionsjo, putSelected($optionsjour,$gracts->gract[$i]->jour));
                 array_push($optionsde, putSelected($optionsdebut,$gracts->gract[$i]->debut));
                 array_push($optionsfi, putSelected($optionsfin,$gracts->gract[$i]->fin));
-                array_push($optionsan,putSelected3($optionsanimateur,$an->getnomprenom($gracts->gract[$i]->idanimateur)));
+                array_push($optionsan, putSelected3($optionsanimateur,$an->getnomprenom($gracts->gract[$i]->idanimateur)));
+                array_push($optionsre, putSelected3($optionsresponsable,$responsable));
                 array_push($idgroupe,$gracts->gract[$i]->id);
                 array_push($groupe,$gracts->gract[$i]->groupe);
                 $n++;
             }
         }
+        //print_r($optionsre);echo "<br>";
+        //echo "après boucle ".strlen($optionsre[0])."  ".strlen($optionsresponsable)."<br>";
         $groupes=join(";",$groupe);
         $idgroupes=join(";",$idgroupe);
         $i=0;$trouve=false;
@@ -72,20 +82,7 @@
             if (!$trouve) $i++;
         }
         $iact=$i; 
-        $M = new MConf; 
-        $sql="SELECT id,nom,prenom FROM $tadh ORDER BY nom";
-        $reponse = $M->querydb($sql);
-        $id=array();$nom=array();$prenom=array();
-        while ($donnees = $reponse->fetch()) {
-            array_push($id,$donnees['id']);
-            array_push($nom,$donnees['nom']);
-            array_push($prenom,$donnees['prenom']);            
-        }
-        $optionsresponsable="<option value=0>Responsable</option>";
-        for($i=0;$i<count($id);$i++) {
-            $optionsresponsable = $optionsresponsable."<option value=".$id[$i].">".$nom[$i]." ".$prenom[$i]."</option>";
-        }
-        $M=null;
+        //echo "avant html";
 	?>
 <div class="champ">
 	<fieldset class="champemprunteurs">
@@ -142,6 +139,7 @@
                         </tr>
             <?php   for ($i=0;$i<$n;$i++) { 
                         $an="animateur".strval($i);
+                        $re="responsable".strval($i);
                         $gr="groupe".strval($i);
                         $li="lieu".strval($i);
                         $jo="jour".strval($i);
@@ -152,6 +150,7 @@
                         <tr>
                             <td><input type="hidden" name=<?php echo $id ?>  value= <?php echo $gracts->gract[$i]->id ?> ></td>
                             <td><select name=<?php echo $an?> > <?php echo $optionsan[$i] ?></select></td>
+                            <td><select name=<?php echo $re?> > <?php echo $optionsre[$i] ?></select></td>
                             <td><select name=<?php echo $gr?> > <?php echo $optionsgr[$i] ?></select> </td>
                             <td><select name=<?php echo $li?> > <?php echo $optionsli[$i] ?></select></td>
                             <td><select name=<?php echo $jo?> > <?php echo $optionsjo[$i] ?></select></td>

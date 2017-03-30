@@ -56,6 +56,7 @@
 		public $premannee;
 		public $sortie;
 		public $specialite;
+		public $prenomnom;
 		public $activites;
 		public $activite1;
 		public $activite2;
@@ -124,6 +125,7 @@
 				$this->premannee=$donnees['premannee'];
 				$this->sortie=$donnees['sortie'];
 				$this->activites=$donnees['activites'];
+				$this->prenomnom=$donnees['prenomnom'];
 			}
 			$M->close();			
 		}
@@ -168,6 +170,7 @@
 			if ($this->portable != $donnees['portable']) $sql .=" portable='$this->portable',";
 			if ($this->courriel != $donnees['courriel']) $sql .=" courriel='$this->courriel',";
 			if ($this->sortie != $donnees['sortie']) $sql .=" sortie='$this->sortie',";
+			if ($this->prenomnom != $donnees['prenomnom']) $sql .=" prenomnom='$this->prenomnom',";
 	    	$sql=substr($sql,0,-1)." WHERE id=$this->id";
 	    	//echo $sql;
 		    $reponse=$M->querydb($sql);
@@ -186,12 +189,13 @@
 	    	$this->assurance = addslashes(strtoupper($this->assurance));
 	    	$this->profession = addslashes($this->profession);
 	    	$this->specialite = addslashes($this->specialite);
+	    	$this->prenomnom = $this->prenom." ".$this->nom;
 	    	$sql0 = "INSERT INTO $tadh (";
 	    	$sql1 = " VALUES (";
 	    	$sql0 .="titre,qualite,nom,prenom,adresse,codepostal,ville,";
 	    	$sql1 .="'$this->titre','$this->qualite','$this->nom','$this->prenom','$this->adresse',$this->codepostal,'$this->ville',";
-	    	$sql0 .="numMGEN,assurance,numeroSS,profession,premannee,activites,";
-	    	$sql1 .="$this->numMGEN,'$this->assurance','".compacte($this->numeroSS)."','$this->profession',$this->premannee,'$this->activites',";
+	    	$sql0 .="numMGEN,assurance,numeroSS,profession,premannee,activites,prenomnom,";
+	    	$sql1 .="$this->numMGEN,'$this->assurance','".compacte($this->numeroSS)."','$this->profession',$this->premannee,'$this->activites','$this->prenomnom',";
 	    	if (strlen($this->nomjf)>0) {$sql0 .="nomjf,";$sql1 .="'$this->nomjf',";}
 	    	if (strlen($this->telephone)>0) {$sql0 .="telephone,";$sql1 .="'".compacte($this->telephone)."',";}
 	    	if (strlen($this->portable)>0) {$sql0 .="portable,";$sql1 .="'".compacte($this->portable)."',";}
@@ -229,6 +233,7 @@
 			$this->cotisation = $_POST['cotisation'];
 			$this->premannee = $_POST['premannee'];
 			$this->activites = $_POST['activites'];
+			$this->prenomnom = $_POST['prenom']." ".$_POST['nom'];
 			$this->activite1=$_POST['activite1'];
 			$this->activite2=$_POST['activite2'];
 			$this->activite3=$_POST['activite3'];
