@@ -72,6 +72,20 @@
             if (!$trouve) $i++;
         }
         $iact=$i; 
+        $M = new MConf; 
+        $sql="SELECT id,nom,prenom FROM $tadh ORDER BY nom";
+        $reponse = $M->querydb($sql);
+        $id=array();$nom=array();$prenom=array();
+        while ($donnees = $reponse->fetch()) {
+            array_push($id,$donnees['id']);
+            array_push($nom,$donnees['nom']);
+            array_push($prenom,$donnees['prenom']);            
+        }
+        $optionsresponsable="<option value=0>Responsable</option>";
+        for($i=0;$i<count($id);$i++) {
+            $optionsresponsable = $optionsresponsable."<option value=".$id[$i].">".$nom[$i]." ".$prenom[$i]."</option>";
+        }
+        $M=null;
 	?>
 <div class="champ">
 	<fieldset class="champemprunteurs">
@@ -106,11 +120,12 @@
                 if ($n<1) {
             ?>
                         <tr>
-                            <th></th><th>Animateur</th><th>Groupe</th><th>Lieu</th><th>Jour</th><th>Début</th><th>Fin</th>
+                            <th></th><th>Animateur</th><th>Responsable</th><th>Groupe</th><th>Lieu</th><th>Jour</th><th>Début</th><th>Fin</th>
                         </tr>
                         <tr>
                             <td><input type="hidden" name="id0" value= <?php echo $gracts->gract[0]->id ?> ></td>
                             <td><select name="animateur0"> <?php echo $optionsanimateur ?></select></td>
+                            <td><select name="reponsable0"> <?php echo $optionresponsable ?></select></td>
                             <td><select name="groupe0"> <?php echo $optionsgroupe ?></select> </td>
                             <td><select name="lieu0"> <?php echo $optionslieu ?></select></td>
                             <td><select name="jour0"> <?php echo $optionsjour ?></select></td>
@@ -123,7 +138,7 @@
                 else { 
             ?>           
                         <tr>
-                        	<th></th><th>Animateur</th><th>Groupe</th><th>Lieu</th><th>Jour</th><th>Début</th><th>Fin</th>
+                        	<th></th><th>Animateur</th><th>Responsable</th><th>Groupe</th><th>Lieu</th><th>Jour</th><th>Début</th><th>Fin</th>
                         </tr>
             <?php   for ($i=0;$i<$n;$i++) { 
                         $an="animateur".strval($i);

@@ -37,6 +37,10 @@
 
 require('../fpdf.php');
 	setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
+	$annee = strftime("%Y");
+	$mois = strftime("%B");
+	if(intval($mois)<8) $saison = strval(intval($annee)-1)."-".$annee;
+	else $saison = $annee."-".strval(intval($annee)+1); 
 	$pdf = new FPDF();
 	if ($taille == "Format A4") {
 		$pdf->AddPage('L','A4');
@@ -46,7 +50,7 @@ require('../fpdf.php');
 		$pdf->Cell(80,8,"Version ".$version,0,0,"L");
 		$pdf->Cell(80,6,utf8_decode('Fiche imprimée le '.strftime("%d %B %Y")),0,1,'R');
 		$pdf->SetFont('Arial','B',15);
-		$pdf->Cell(50,8,"ANNEE 2016-2017",0,0,'C');
+		$pdf->Cell(50,8,"ANNEE ".$saison,0,0,'C');
 		$pdf->Cell(160,8,"",0,0);
 		$pdf->SetFont('Arial','',12);
 		$pdf->Cell(50,8,"Horaire : ".$gra->jour." (".$gra->debut." - ".$gra->fin.")",0,1,"L");
@@ -111,7 +115,7 @@ require('../fpdf.php');
 		$pdf->Cell(80,8,"Version ".$version,0,0,"L");
 		$pdf->Cell(100,6,utf8_decode('Fiche imprimée le '.strftime("%d %B %Y")),0,1,'R');
 		$pdf->SetFont('Arial','B',20);
-		$pdf->Cell(50,8,"ANNEE 2016-2017",0,0,'L');
+		$pdf->Cell(50,8,"ANNEE ".$saison,0,0,'L');
 		$pdf->Cell(260,8,"",0,0);
 		$pdf->SetFont('Arial','',17);
 		$pdf->Cell(50,8,"Horaire : ".$gra->jour." (".$gra->debut." - ".$gra->fin.")",0,1,"L");

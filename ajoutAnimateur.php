@@ -17,7 +17,7 @@
 	    include("animateurs.inc");
 	    $an = new Animateur;
 	    $an->getpost();
-	    $an->insere();
+	    $an->insere($tani);
 	    if ($an->id>0) echo "</br></br><div class='alerte'>La fiche de $an->prenom $an->nom a été ajoutée à la base de données avec l'id $an->id </div>";
 	    else echo "</br></br><div class='alerte'>La fiche de $an->prenom $an->nom n'a pas pu être ajoutée à la base de données !!!</div>";
 

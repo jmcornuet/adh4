@@ -26,7 +26,7 @@
 					<td><select name="activite"><?php echo $optionsactivite ?> </select></td>
 					<td>   </td>
 					<td><label for "groupe">Groupe :</label></td>
-					<td><select name="groupe"><?php echo $optionsgroupe ?> </select></td>
+					<td><select name="groupe"><?php echo $optionsgroupe1 ?> </select></td>
 
 				</tr>
 				<tr>
@@ -67,11 +67,33 @@
 					<td></td>
 					<td></td>
 					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
 				</tr>
 				<tr>
 					<td></td>
 					<td>Animateur:</td>
 					<td><select name="animateur"><?php echo $optionsanimateur ?></select> 
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>Responsable:</td>
+					<td><select name="responsable"><?php echo $optionsresponsable ?></select> 
+					<td></td>
+					<td></td>
+					<td></td>
 				</tr>
 			</table>
 					</br>

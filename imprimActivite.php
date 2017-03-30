@@ -36,7 +36,7 @@ require('../fpdf.php');
 	$pdf->Cell(35,8,"2016-2017",1,1,'C');
 	$pdf->Ln(2);
 	$n=strlen($act);$w=$n*5;$d=90-$w/2;
-	$pdf->SetFont('Arial','BU',18);
+	$pdf->SetFont('Arial','B',18);
 	$pdf->Cell($d,8,"",0,0);		
 	$pdf->Cell($w,10,utf8_decode(strtoupper($act)),1,0,'C');
 	$pdf->SetFont('Arial','B',14);

@@ -71,6 +71,19 @@
     	array_push($animateur,$np);
     }
 	$animateur=arrayunique($animateur);
+    $sql="SELECT * FROM $tadh ORDER BY nom";
+    $reponse = $M->querydb($sql);
+    $id1=array();$nom1=array();$prenom1=array();
+    while ($donnees = $reponse->fetch()) {
+        array_push($id1,$donnees['id']);
+        array_push($nom1,$donnees['nom']);
+        array_push($prenom1,$donnees['prenom']);            
+    }
+    $optionspersonne="";
+    for($i=0;$i<count($id1);$i++) {
+        $optionspersonne = $optionspersonne."<option value=".$id1[$i].">".$nom1[$i]." ".$prenom1[$i]."</option>";
+    }
+    $optionsresponsable ="<option value=0>Responsable</option>".$optionspersonne;
     $M->close();
 	$optionsanimateur="<option value=\"Animateur\">Animateur</option>";
 	for($i=0;$i<count($animateur);$i++) {
@@ -100,4 +113,5 @@
 			"13h15","13h30","13h45","14h","14h15","14h30","14h45","15h","15h15","15h30","15h45","16h","16h15","16h30","16h45","17h","17h15","17h30","17h45","18h"];
 	$optionsfin="";
 	for ($i=0;$i<count($fin);$i++) $optionsfin = $optionsfin."<option value=\"$fin[$i]\" >$fin[$i]</option>";
+	//echo "fin de liOptions<br>";
 ?>

@@ -102,7 +102,7 @@
 					<td><select id="titre" name="titre"> <?php echo $optionstitre ?></select></td>
 					<td><label for="nom">Nom : </label></td>
 					<td><input id="nom" type="text" size=40 name="nom" value="<?php echo $ad->nom ?>" ></td>
-					<td><label for="nomjf">Nom de jeune-fille: </label></td>
+					<td><label for="nomjf">Nom de naissance: </label></td>
 					<td><input id="nomjf" type="text" size=30 name="nomjf" value="<?php echo $ad->nomjf ?>" ></td>
 					
 				</tr>
