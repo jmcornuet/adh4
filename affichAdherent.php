@@ -154,7 +154,12 @@
 					<td><input id="numeroSS" type="text" name="numeroSS" size=25 value="<?php echo $ad->numeroSS ?>" ></td>
 					<td><label for="cotisation">Cotisation : </label></td></td>
 					<td><input id="cotisationP" type="radio" name="cotisation" value=0 <?php if ($ad->cotisation=='0') echo "checked" ?> >A jour &nbsp;&nbsp;&nbsp;
-					<input id="cotisationA" type="radio" name="cotisation" value=1 <?php if ($ad->cotisation!='0') echo "checked" ?>>En attente </td>
+					<input id="cotisationA" type="radio" name="cotisation" value=1 <?php if ($ad->cotisation!='0') echo "checked" ?>>
+						<?php 
+							if ($ad->cotisation!='0') echo "<span style='color:red;font-weight: bold'> EN ATTENTE</span";
+							else echo "En attente";
+						?> 
+					</td>
 				</tr>
 				<tr>					
 					<td> </td>			

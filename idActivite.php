@@ -50,14 +50,10 @@
 	<?php 
     $N = new MConf;  
     $gract=new Gract;
-    $gract->getpost();$gract->activite = $activite[$gract->activite];//echo $gract->activite."<br>";
-    $an=new Animateurs;
-    $an->cree($tani);
-    $gract->animateur=$animateur[$gract->animateur];//echo $gract->animateur."<br>";
-    $gract->idanimateur=$an->getid($gract->animateur);
+    $gract->getpost();$gract->activite = $activite[$gract->activite];echo $gract->activite."<br>";
     $sql="";
       $mes0="SELECT * FROM $tact ";
-      if ($gract->activite !="Pas d'activité") $sql = $mes0."WHERE activite='".addslashes($gract->activite)."'";
+      if ($gract->codactivite !=0) $sql = $mes0."WHERE codactivite='".addslashes($gract->codactivite)."'";
       if ($gract->groupe!=0) {
         if (strlen($sql)<1) $sql = $mes0."WHERE groupe=".$gract->groupe;
         else $sql = $sql." AND groupe=".$gract->groupe;
@@ -87,12 +83,16 @@
         else $sql = $sql." AND fin='".$gract->fin."'";
       }
       if ($gract->idanimateur>0) {
-        if (strlen($sql)<1) $sql = $mes0."WHERE idanimateur=".addslashes($gract->idanimateur);
-        else $sql = $sql." AND idanimateur=".addslashes($gract->idanimateur);
+        if (strlen($sql)<1) $sql = $mes0."WHERE idanimateur=".$gract->idanimateur;
+        else $sql = $sql." AND idanimateur=".$gract->idanimateur;
+      }
+      if ($gract->idresponsable>0) {
+        if (strlen($sql)<1) $sql = $mes0."WHERE idresponsable=".$gract->idresponsable;
+        else $sql = $sql." AND idresponsable=".$gract->idresponsable;
       }
      if (strlen($sql)<6) $sql="SELECT * FROM $tact";
      $sql .=" ORDER BY activite";
-     //echo $sql."<br>";
+     //echo $sql."<br>";die("");
      $ga = new Gracts;
      $ga->cherche($sql,$tact);
      $N = null;//echo "n=".$ga->n."<br>";die("");
@@ -102,15 +102,15 @@
       $mes ='<div id="divConteneur"> <table style="width:80%"><tr><th>Activité</th><th>Groupe</th><th>Lieu</th><th>Jour</th><th>Début</th><th>Fin</th><th>Animateur</th></tr>';
         for ($i=0;$i<$ga->n;$i++) {
             $idligne=strval($i);
-            $ga->gract[$i]->animateur = $an->getnomprenom($ga->gract[$i]->idanimateur);
+            $anim = getoption($optionsanimateur,$ga->gract[$i]->idanimateur);
             $mes =$mes.'<tr id='.$idligne.' class="defaut">';
             $mes =$mes.'<td class="defaut" onclick="SelectGract('.strval($ga->gract[$i]->id).')">'.strval($ga->gract[$i]->activite).'</td>';
-            $mes =$mes.'<td class="defaut" onclick="SelectGract('.strval($ga->gract[$i]->id).'">'.strval($ga->gract[$i]->groupe).'</td>';
+            $mes =$mes.'<td class="sans">'.strval($ga->gract[$i]->groupe).'</td>';
             $mes =$mes.'<td class="sans">'.$ga->gract[$i]->lieu.'</td>';
             $mes =$mes.'<td class="sans">'.$ga->gract[$i]->jour.'</td>';
             $mes =$mes.'<td class="sans">'.$ga->gract[$i]->debut.'</td>';
             $mes =$mes.'<td class="sans">'.$ga->gract[$i]->fin.'</td>';
-            $mes =$mes.'<td class="defaut" onclick="SelectAnimateur('.strval($ga->gract[$i]->idanimateur).')">'.$ga->gract[$i]->animateur.'</td>';
+            $mes =$mes.'<td class="defaut" onclick="SelectAnimateur('.strval($ga->gract[$i]->idanimateur).')">'.$anim.'</td>';
             $mes =$mes.'</tr>';
       }
       $mes =$mes.'</table></div>';

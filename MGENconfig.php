@@ -43,8 +43,12 @@
 	    	return $reponse;											//retourne la réponse à la première requête 
 	    }
 
-	    public function lastId() {				//fonction qui retourne l'id de la dernière valeur insérée
-	    	return $this->bdd->lastInsertId();
+	    public function lastId($table) {				//fonction qui retourne l'id de la dernière valeur insérée dans $table
+			$sql="SELECT * FROM $table ORDER BY id DESC LIMIT 1";	    	
+			$reponse=$this->bdd->query($sql);
+	    	$donnees = $reponse->fetch();
+	    	return $donnees['id'];
+	    	//return $this->bdd->lastInsertId();
 	    }
 	    public function close() {				//fonction qui ferme l'accès à la base 
 	    	$this->bdd = null;

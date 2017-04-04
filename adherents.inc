@@ -34,6 +34,24 @@
     	} else $s1=$s0;
     	return $s1;
     }
+    function writefileadh($tadh) {
+    	$M1 = new MConf;
+    	$sql="SELECT * FROM $tadh ORDER BY nom";
+    	$repons = $M1->querydb($sql);
+    	$id1=array();$nom1=array();$prenom1=array();
+    	while ($donnees = $repons->fetch()) {
+        	array_push($id1,$donnees['id']);
+        	array_push($nom1,$donnees['nom']);
+        	array_push($prenom1,$donnees['prenom']); 
+    	}
+    	$optionspersonne="";
+    	for($i=0;$i<count($id1);$i++) {
+        	$optionspersonne = $optionspersonne."<option value=".$id1[$i].">".$nom1[$i]." ".$prenom1[$i]."</option>";
+    	}
+    	file_put_contents("listadh.txt",$optionspersonne);
+    	$M1 = null;
+    }
+
 	class Adherent {
 		public $id;
 		public $titre;
@@ -142,6 +160,7 @@
 			$sql = "SELECT * FROM $tadh WHERE id=$this->id";
 		    $reponse=$M->querydb($sql);
 			$donnees=$reponse->fetch();
+			$filemodif=false;
 			$sql = "UPDATE $tadh SET";
 			$this->nom = transprenom($this->nom);
 			$this->prenom = transprenom($this->prenom);
@@ -151,8 +170,8 @@
 			$this->portable = compacte($this->portable);
 			if ($this->titre != $donnees['titre']) $sql .=" titre='$this->titre',";
 			if ($this->qualite != $donnees['qualite']) $sql .=" qualite='$this->qualite',";
-			if ($this->nom != $donnees['nom']) $sql .=" nom='".addslashes($this->nom)."',";
-			if ($this->prenom != $donnees['prenom']) $sql .=" prenom='".addslashes($this->prenom)."',";
+			if ($this->nom != $donnees['nom']) {$sql .=" nom='".addslashes($this->nom)."',";$filemodif=true;}
+			if ($this->prenom != $donnees['prenom']) {$sql .=" prenom='".addslashes($this->prenom)."',";$filemodif=true;}
 			if ($this->nomjf != $donnees['nomjf']) $sql .=" nomjf='".addslashes($this->nomjf)."',";
 			if ($this->adresse != $donnees['adresse']) $sql .=" adresse='".addslashes($this->adresse)."',";
 			if ($this->compadresse != $donnees['compadresse']) $sql .=" compadresse='".addslashes($this->compadresse)."',";
@@ -174,42 +193,45 @@
 	    	$sql=substr($sql,0,-1)." WHERE id=$this->id";
 	    	//echo $sql;
 		    $reponse=$M->querydb($sql);
+		    if (($filemodif)&&($reponse)) writefileadh($tadh);
 		    $M->close();
 		 	return $reponse;
 		}
 		public function insere($tadh) {
-			$M = new MConf;
-			$this->premannee=$M->annee;
-			$this->nom = addslashes(strtoupper($this->nom));
+			$MM = new MConf;
+			$this->premannee=$MM->annee;
+			$this->nom = addslashes(transprenom($this->nom));
 	    	$this->prenom = addslashes(transprenom($this->prenom));
-	    	$this->nomjf = addslashes(strtoupper($this->nomjf));
-	    	$this->adresse = addslashes(strtoupper($this->adresse));
-	    	$this->compadresse = addslashes(strtoupper($this->compadresse));
-	    	$this->ville = addslashes(strtoupper($this->ville));
-	    	$this->assurance = addslashes(strtoupper($this->assurance));
+	    	$this->nomjf = addslashes(transprenom($this->nomjf));
+	    	$this->adresse = addslashes($this->adresse);
+	    	$this->compadresse = addslashes($this->compadresse);
+	    	$this->ville = addslashes($this->ville);
+	    	$this->assurance = addslashes($this->assurance);
 	    	$this->profession = addslashes($this->profession);
 	    	$this->specialite = addslashes($this->specialite);
 	    	$this->prenomnom = $this->prenom." ".$this->nom;
+	    	//echo $this->activites."<br>";
 	    	$sql0 = "INSERT INTO $tadh (";
 	    	$sql1 = " VALUES (";
 	    	$sql0 .="titre,qualite,nom,prenom,adresse,codepostal,ville,";
 	    	$sql1 .="'$this->titre','$this->qualite','$this->nom','$this->prenom','$this->adresse',$this->codepostal,'$this->ville',";
-	    	$sql0 .="numMGEN,assurance,numeroSS,profession,premannee,activites,prenomnom,";
-	    	$sql1 .="$this->numMGEN,'$this->assurance','".compacte($this->numeroSS)."','$this->profession',$this->premannee,'$this->activites','$this->prenomnom',";
+	    	$sql0 .="numMGEN,assurance,numeroSS,profession,premannee,activites,prenomnom,cotisation,";
+	    	$sql1 .="$this->numMGEN,'$this->assurance','".compacte($this->numeroSS)."','$this->profession',$this->premannee,'$this->activites','$this->prenomnom',$this->cotisation,";
 	    	if (strlen($this->nomjf)>0) {$sql0 .="nomjf,";$sql1 .="'$this->nomjf',";}
 	    	if (strlen($this->telephone)>0) {$sql0 .="telephone,";$sql1 .="'".compacte($this->telephone)."',";}
 	    	if (strlen($this->portable)>0) {$sql0 .="portable,";$sql1 .="'".compacte($this->portable)."',";}
 	    	if (strlen($this->compadresse)>0) {$sql0 .="compadresse,";$sql1 .="'$this->compadresse',";}
 	    	if (strlen($this->courriel)>0) {$sql0 .="courriel,";$sql1 .="'$this->courriel',";}
-	    	if (strlen($this->specialite)>0) {$sql0 .="specialite,";$sql1 .="'$this->specialite'";}
+	    	if (strlen($this->specialite)>0) {$sql0 .="specialite,";$sql1 .="'$this->specialite',";}
 	    	$sql0=substr($sql0,0,-1).")";
 	    	$sql1=substr($sql1,0,-1).")";
 			$sql=$sql0.$sql1;
 			//echo $sql."<br>";
-			$M = new MConf;
-		    $reponse=$M->querydb($sql);
-			$this->id=$M->lastId();
-		    $M->close();
+		    $retour=$MM->querydb($sql);
+		    if ($retour) writefileadh($tadh);
+			$this->id=$MM->lastId($tadh);
+		    $MM->close();
+		    return $retour;
 		}
 		public function getpost() {
 			$this->id = $_POST['id'];
@@ -274,7 +296,9 @@
 		    $nomactivite=$this->arrayunique($nomactivite);
 		    $codactivite=$this->arrayunique($codactivite);
     		$act=array();$gro=array();$par=array();
-    		if ($this->activite1 != "Pas d'activité") {array_push($act,$this->activite1);array_push($gro,$this->groupe1);array_push($par,$this->particip1);}
+    		if ($this->activite1 != "Pas d'activité") {
+    			array_push($act,$this->activite1);array_push($gro,$this->groupe1);array_push($par,$this->particip1);
+    		}
     		if ($this->activite2 != "Pas d'activité") {array_push($act,$this->activite2);array_push($gro,$this->groupe2);array_push($par,$this->particip2);}
     		if ($this->activite3 != "Pas d'activité") {array_push($act,$this->activite3);array_push($gro,$this->groupe3);array_push($par,$this->particip3);}
     		if ($this->activite4 != "Pas d'activité") {array_push($act,$this->activite4);array_push($gro,$this->groupe4);array_push($par,$this->particip4);}

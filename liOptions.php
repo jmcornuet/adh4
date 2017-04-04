@@ -1,20 +1,5 @@
 <?php
 	require_once("MGENconfig.php");
-	function arrayunique($a) {
-		$b=array();
-		for ($i=0;$i<count($a);$i++) {
-			if ($i==0) array_push($b,$a[0]);
-			else {
-				$trouve=false;$j=0;
-				while ((!$trouve)and($j<count($b))) {
-					$trouve=($b[$j]==$a[$i]);
-					if (!$trouve) $j++;
-				}
-				if (!$trouve) array_push($b,$a[$i]);
-			}
-		}
-		return $b;
-	}
 	function despace($s) {
 		$b="";
 		for ($i=0;$i<strlen($s);$i++) {
@@ -43,52 +28,19 @@
 		return $b;
 	}
 
-	$M = new MConf;
- 	$sql = "SELECT * FROM $tact ORDER BY activite";
-    $reponse=$M->querydb($sql);
-
-//echo "avant recuperation des activites<br>";
-    $activite=array();$codactivite=array();
-    while($donnees = $reponse->fetch()) {
-    	array_push($activite,$donnees['activite']);
-    	array_push($codactivite,$donnees['codactivite']);
+    function getoption($options,$n) {
+        $a="=".strval($n).">";
+        $b=substr($options,strpos($options,$a)+strlen($a));
+        $c=substr($b,0,strpos($b,"<"));
+        return $c;
     }
-//for($i=0;$i<count($activite);$i++) echo $activite[$i]." ";echo "<br>";
-    $activite=arrayunique($activite);
-//for($i=0;$i<count($activite);$i++) echo $activite[$i]." ";echo "<br>";
-    $activite=raz($activite);
-    $codactivite=arrayunique($codactivite);
-	$optionsactivite="";
-	for($i=0;$i<count($activite);$i++) {
-		if (strlen($activite[$i])>2)
-		$optionsactivite = $optionsactivite."<option value=$i>$activite[$i]</option>";
-	}
- 	$sql = "SELECT * FROM $tani ORDER BY nom";
-    $reponse=$M->querydb($sql);
-	$animateur=array();
-    while($donnees = $reponse->fetch()) {
-    	$np=$donnees['prenom']." ".$donnees['nom'];
-    	array_push($animateur,$np);
-    }
-	$animateur=arrayunique($animateur);
-    $sql="SELECT * FROM $tadh ORDER BY nom";
-    $reponse = $M->querydb($sql);
-    $id1=array();$nom1=array();$prenom1=array();
-    while ($donnees = $reponse->fetch()) {
-        array_push($id1,$donnees['id']);
-        array_push($nom1,$donnees['nom']);
-        array_push($prenom1,$donnees['prenom']);            
-    }
-    $optionspersonne="";
-    for($i=0;$i<count($id1);$i++) {
-        $optionspersonne = $optionspersonne."<option value=".$id1[$i].">".$nom1[$i]." ".$prenom1[$i]."</option>";
-    }
+    $optionsactiv=file_get_contents("listact.txt");
+    $optionsactivite="<option value=0>Pas d'activité</option>".$optionsactiv;
+    $optionspersonne=file_get_contents("listadh.txt");
     $optionsresponsable ="<option value=0>Responsable</option>".$optionspersonne;
-    $M->close();
-	$optionsanimateur="<option value=\"Animateur\">Animateur</option>";
-	for($i=0;$i<count($animateur);$i++) {
-		$optionsanimateur = $optionsanimateur."<option value=$i>$animateur[$i]</option>";
-	}
+    $optionsanim=file_get_contents("listani.txt");
+	$optionsanimateur="<option value=0>Animateur</option>".$optionsanim;
+
 	$profession=["profession","non renseignée","Ens. primaire","Ens. secondaire","Ens. sup ou recherche","Administration","divers (Educ. nat.)","médicale/paramédicale","Industrie","Commerce ou artisanat","libérale","Femme au foyer"];
 	$optionsprofession="";
 	for ($i=0;$i<count($profession);$i++) $optionsprofession = $optionsprofession."<option value=\"$profession[$i]\" >$profession[$i]</option>";

@@ -38,26 +38,25 @@
   <div class="resultat" id="res">
 	</br>
 	<?php 
-      $N = new MConf;
    		$mes0="SELECT * FROM $tani WHERE";
       	$sql="";
         if (strlen($an->nom)>0) $sql = $mes0." nom LIKE '%".$an->nom."%'";
         if (strlen($an->telephone)>0) {
-        	if (strlen($sql)<1) $sql =$mes0." telephone = '".$an->telephone."'";
-        	else $sql = $sql." AND telephone='".$an->telephone."'";
+        	if (strlen($sql)<1) $sql =$mes0." telephone = '".compacte($an->telephone)."'";
+        	else $sql = $sql." AND telephone='".compacte($an->telephone)."'";
         }
         if (strlen($an->portable)>0) {
-          if (strlen($sql)<1) $sql =$mes0." portable = '".$an->portable."'";
-          else $sql = $sql." AND portable='".$an->portable."'";
+          if (strlen($sql)<1) $sql =$mes0." portable = '".compacte($an->portable)."'";
+          else $sql = $sql." AND portable='".compacte($an->portable)."'";
         }
         if (strlen($an->courriel)>0) {
-        	if (strlen($sql)<1) $sql =$mes0." courriel ='".$an->courriel."'";
-        	else $sql = $sql." AND courriel = '".$an->courriel."'";
+        	if (strlen($sql)<1) $sql =$mes0." courriel LIKE'%".$an->courriel."%'";
+        	else $sql = $sql." AND courriel LIKE '%".$an->courriel."%'";
         }
         if (strlen($sql)<6) $sql="SELECT * FROM $tani";
-        $an = new Animateurs;
+        $an = new Animateurs;//echo $sql."<br>";
         $an->cherche($sql);
-        $N = null; //echo "n=".$an->n;
+        //echo "n=".$an->n;
 		    if ($an->n<1) echo "</br></br><div class='alerte'>Aucun animateur trouvé</div>";
 		    else if ($an->n>1) {
 			 echo "<div class='alerte'>$an->n animateurs trouvés</div></br>"; 

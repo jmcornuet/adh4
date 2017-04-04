@@ -31,17 +31,6 @@ ob_implicit_flush(true);
         $ga = new Gracts;
         $ga->gract=array($ng);
         $ga->getpost($ng);//echo "après getpost<br>";
-        $M = new MConf;
-        for ($i=0;$i<$ng;$i++) {        
-            $ga->gract[$i]->animateur=$animateur[$ga->gract[$i]->animateur];
-            $w=explode(" ",$ga->gract[$i]->animateur);
-            $sql = "SELECT * FROM $tani WHERE prenom='".$w[0]."' AND nom='".$w[1]."'";//echo $sql."<br>";
-            $reponse = $M->querydb($sql);
-            if ($donnees=$reponse->fetch()) $ga->gract[$i]->idanimateur=$donnees['id'];
-            $ga->gract[$i]->activite=$activite[intval($ga->gract[$i]->activite)];
-
-        }
-        $M=null;
         if ($_POST['modif']) {
             //echo "MODIFICATION $ng<br>";
                 $rep=true;
@@ -51,6 +40,16 @@ ob_implicit_flush(true);
     	    if ($rep) echo "</br></br><div class='alerte'>L'activité $ga->activite a bien été modifiée dans la base de données </div>";
     	    else echo "</br></br><div class='alerte'>L'activité $ga->activite n'a pas pu être modifiée dans la base de données !!!</div>";
         } else if ($_POST['supp']) {
+            if ($niveau>1) echo "</br></br><div class='alerte'>Vos droits sont insuffisants pour supprimer une activité </div>";
+            else {
+                $rep=true;
+                for ($i=0;$i<$ng;$i++) {
+                    $rep = ($rep and $ga->gract[$i]->supprime($tact));
+                }
+            if ($rep) $ga->writefile($tact);
+            if ($rep) echo "</br></br><div class='alerte'>L'activité $ga->activite a bien été supprimée dans la base de données </div>";
+            else echo "</br></br><div class='alerte'>L'activité $ga->activite n'a pas pu être supprimée dans la base de données !!!</div>";
+            }
 
         } else if ($_POST['addgr']) {
             $postgr=$_POST['groupes'];
@@ -70,16 +69,17 @@ ob_implicit_flush(true);
         <fieldset class="champemprunteurs">
         <form name="formemprunteurs" action="ajoutGroupe.php" method="post">
             <input type="hidden" name="id" value=" <?php echo $ga->gract[0]->id ?>" >
-            <input type="hidden" name="activite" value=" <?php echo $iact[0] ?>" >
+            <input type="hidden" name="activite" value=" <?php echo $ga->gract[0]->activite ?>" >
             <input type="hidden" name="codactivite" value=" <?php echo $ga->gract[0]->codactivite ?>" >
             <input type="hidden" name="tarifA" value=" <?php echo $_POST['tarifA'] ?>" >
             <input type="hidden" name="tarifC" value=" <?php echo $_POST['tarifC'] ?>" >
             <table  class="saisie"> 
                 <tr>
-                    <th>Animateur</th><th>Groupe</th><th>Lieu</th><th>Jour</th><th>Début</th><th>Fin</th>
+                    <th>Animateur</th><th>Responsable</th><th>Groupe</th><th>Lieu</th><th>Jour</th><th>Début</th><th>Fin</th>
                 </tr>
                 <tr>
-                    <td><select name="animateur"> <?php echo $optionsanimateur ?></select></td>
+                    <td><select name="idanimateur"> <?php echo $optionsanimateur ?></select></td>
+                    <td><select name="idresponsable"> <?php echo $optionsresponsable ?></select></td>
                     <td><select name="groupe"> <?php echo $optionsgroupe ?></select> </td>
                     <td><select name="lieu"> <?php echo $optionslieu ?></select></td>
                     <td><select name="jour"> <?php echo $optionsjour ?></select></td>
@@ -109,11 +109,11 @@ ob_implicit_flush(true);
             for ($i=0;$i<$ng;$i++) $optionsgroupe = $optionsgroupe."<option value=$groupes[$i]>$groupes[$i]</option>";
 
     ?>
-   <div class="titre1">Suppression d'un groupe à l'activité <?php echo "\"".$ga->activite."\"" ?></div>
+   <div class="titre1">Suppression d'un groupe à l'activité <?php echo "\"".$ga->gract[0]->activite."\"" ?></div>
 <div class="champ">
         <fieldset class="champemprunteurs">
         <form name="formemprunteurs" action="supprimGroupe.php" method="post">
-            <input type="hidden" name="activite" value=" <?php echo $iact[0] ?>" >
+            <input type="hidden" name="activite" value=" <?php echo $ga->gract[0]->activite ?>" >
             <input type="hidden" name="codactivite" value=" <?php echo $ga->gract[0]->codactivite ?>" >
             <input type="hidden" name="idgroupes" value= <?php echo $postidgr ?> >
             <input type="hidden" name="groupes" value= <?php echo $postgr ?> >

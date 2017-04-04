@@ -25,27 +25,32 @@
     }
     //echo $idgroupes[$i]."<br>";
     $ga->id = $idgroupes[$i];
+    $ga->getgract($tact);
+    $codact = $ga->codactivite;
     $newgroupes=array();
     for ($j=0;$j<count($groupes);$j++) if ($j!=$i) array_push($newgroupes,$groupes[$j]);
     if (count($newgroupes)>0) sort($newgroupes);
-   
-    if (($_POST['supgr'])and($ga->groupe>1)) {
+    $g=$ga->groupe;
+    if (($_POST['supgr'])and($g>1)) {
         if (count($newgroupes)>0) {
-            $ga->supprime();
+            $ga->supprime($tact);
             $ga->groupe=$newgroupes[0];
-            $ga->getid();
+            $ga->codactivite=$codact;//echo $ga->codactivite."<br>";
+            $ga->getid($tact);//echo $ga->id."<br>";
         } else { 
             $ga->groupe=1;
-            $ga->animateur='Animateur';
+            $ga->idanimateur=0;
+            $ga->idresponsable=0;
             $ga->lieu='';
             $ga->jour='';
             $ga->debut='';
             $ga->fin='';
-            $ga->modifie();
+            $ga->codactivite=$codact;
+            $ga->modifie($tact);
         }
     }
-    $mes  = '<form name="formgract" method="post" action="affichGract.php">'; //echo "mes1 = ".$mes."<br>";
-    $mes = $mes.'<input type="hidden" name="id" value='.$ga->id.' >'; //echo "mes2 = ".$mes."<br>";
+    $mes  = '<form name="formgract" method="post" action="affichGract2.php">'; echo "mes1 = ".$mes."<br>";
+    $mes = $mes.'<input type="hidden" name="id" value='.$ga->id.' >'; echo "mes2 = ".$mes."<br>";
     $mes = $mes.'</form>';
     $mes = $mes.'<script type="text/javascript">document.formgract.submit();</script>';
     echo $mes; 

@@ -19,9 +19,9 @@
 	    $ga = new Gract;
 	    $ga->getpost();
 	    $ga->getnouveaucode($tact);
-        $an = new Animateur;
-        $an->animateur = $ga->animateur;
-        $ga->idanimateur = $an->idanim();
+        //$an = new Animateur;
+        //$an->animateur = $ga->animateur;
+        //$ga->idanimateur = $an->idanim();
 	    $ga->insere($tact);
 	    if ($ga->id>0) echo "</br></br><div class='alerte'>La nouvelle activité $ga->activite a été ajoutée à la base de données avec l'id $ga->id </div>";
 	    else echo "</br></br><div class='alerte'>La nouvelle activité $ga->activite n'a pas pu être ajoutée à la base de données !!!</div>";

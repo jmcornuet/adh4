@@ -32,7 +32,7 @@
 					
 				</tr>
 				<tr>
-					<td><select id="qualite" name="qualite"><option value="Qualite">Qualité</option><option value="M">Mutualiste</option><option value="C">Conjoint</option></select> </td>			
+					<td><select id="qualite" name="qualite"><option value="Qualite">Qualité</option><option value="M">Mutualiste</option><option value="C">Ayant-droit</option></select> </td>			
 					<td><label for="prenom">Prénom : </label></td>
 					<td><input id="prenom" type="text" size=40 name="prenom" class="fichinput" onfocus="blanc(2)" onblur="test(2)"></td>
 					<td><label for="numMGEN">Numéro MGEN : </label></td>
@@ -70,11 +70,13 @@
 					<td> </td>			
 					<td><label for "assurance">Assurance :</label></td>
 					<td><input id="assurance" type="text" size=30 name="assurance" class="fichinput" onfocus="blanc(7)" onblur="test(7)"></td>
-					<td><label for="numeroSS">Numéro S.S. : </label>  </td>
-					<td><input id="numeroSS" type="text" name="numeroSS" size=25 class="fichinput" onfocus="blanc(8)" onblur="test(8)"></td>
+					<td><label for "specialite">Spécialité</label></td>
+					<td><input name="specialite" size=30 type="text"></td>
 				</tr>
 				<tr>					
 					<td> </td>			
+					<td><label for="numeroSS">Numéro S.S. : </label>  </td>
+					<td><input id="numeroSS" type="text" name="numeroSS" size=25 class="fichinput" onfocus="blanc(8)" onblur="test(8)"></td>
 					<td><label for="cotisation">Cotisation : </label></td></td>
 					<td><input type="radio" name="cotisation" id="cotisationP" value=0>A jour &nbsp;&nbsp;&nbsp;
 					<input type="radio" name="cotisation" id="cotisationA" value=1>En attente </td>
@@ -83,33 +85,45 @@
 				</tr>
 				<tr>
 					<td> </td>
-					<td style="float:right">(groupe) </td>
-					<td>Activité(s) </td>
-					<td style="float:right">(groupe) </td>
-					<td>Activité(s) </td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
 				</tr>
+			</table>
+			<table class="saisie">
 				<tr>
-					<td> </td>
+					<th>Activité</th><th>Groupe</th><th>Réglée</th><th>     </th><th>Activité</th><th>Groupe</th><th>Réglée     </th>
+				</tr>
 
-					<td><select name="groupe1" style="float:right"><?php echo $optionsgroupe ?> </select></td>
-					<td><select name="activite1"><?php echo $optionsactivite ?></select></td>
-					<td><select name="groupe4" style="float:right"><?php echo $optionsgroupe ?> </select></td>
+				<tr>
+					<td><select name="activite1"  class="selectoption"><?php echo $optionsactivite ?></select></td>
+					<td>&nbsp;&nbsp;&nbsp;<select name="groupe1" class="selectoption"><?php echo $optionsgroupe ?></select></td>
+					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="particip1" value="" <?php echo $particip1 ?> ></td>
+					<td></td>
 					<td><select  name="activite4" class="selectoption"><?php echo $optionsactivite ?></select></td>
+					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="groupe4" class="selectoption"><?php echo $optionsgroupe ?></select></td>
+					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="particip4" value="" <?php echo $particip4 ?> ></td>
 				</tr>			
 				<tr>
-					<td> </td>
-					<td><select name="groupe2" style="float:right"><?php echo $optionsgroupe ?> </select></td>
 					<td><select name="activite2" class="selectoption"><?php echo $optionsactivite ?></select></td>
-					<td><select name="groupe5" style="float:right"><?php echo $optionsgroupe ?>  </select></td>
+					<td>&nbsp;&nbsp;&nbsp;<select name="groupe2" class="selectoption"><?php echo $optionsgroupe ?></select></td>
+					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="particip2" value="" <?php echo $particip2 ?> ></td>
+					<td></td>
 					<td><select  name="activite5" class="selectoption"><?php echo $optionsactivite ?></select></td>
+					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="groupe5" class="selectoption"><?php echo $optionsgroupe ?></select></td>
+					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="particip5" value="" <?php echo $particip5 ?> ></td>
 				</tr>			
 				<tr>
-					<td> </td>
-					<td><select name="groupe3" style="float:right"><?php echo $optionsgroupe ?>  </select></td>
 					<td><select name="activite3" class="selectoption"><?php echo $optionsactivite ?></select></td>
-					<td><select name="groupe6" style="float:right"><?php echo $optionsgroupe ?>  </select></td>
+					<td>&nbsp;&nbsp;&nbsp;<select name="groupe3" class="selectoption"><?php echo $optionsgroupe ?></select></td>
+					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="particip3" value="" <?php echo $particip3 ?> ></td>
+					<td></td>
 					<td><select  name="activite6" class="selectoption"><?php echo $optionsactivite ?></select></td>
-				</tr>			
+					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="groupe6" class="selectoption"><?php echo $optionsgroupe ?></select></td>
+					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="particip6" value="" <?php echo $particip6 ?> ></td>
+				</tr>
+				<tr><td><input type="hidden" name="affich" value="on"</td></tr>
 			</table>
 					</br>
 					<input id="go" type="hidden" value="CONFIRMER">

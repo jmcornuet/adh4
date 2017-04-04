@@ -38,14 +38,13 @@
 	<?php 
     $ad = new Adherent;
     $ad->getpost();
-
     $aa=[];
-    $ad->activite1=$activite[intval($ad->activite1)];if ($ad->activite1 !="Pas d'activité") array_push($aa,$ad->activite1);
-    $ad->activite2=$activite[intval($ad->activite2)];if ($ad->activite2 !="Pas d'activité") array_push($aa,$ad->activite2);
-    $ad->activite3=$activite[intval($ad->activite3)];if ($ad->activite3 !="Pas d'activité") array_push($aa,$ad->activite3);
-    $ad->activite4=$activite[intval($ad->activite4)];if ($ad->activite4 !="Pas d'activité") array_push($aa,$ad->activite4);
-    $ad->activite5=$activite[intval($ad->activite5)];if ($ad->activite5 !="Pas d'activité") array_push($aa,$ad->activite5);
-    $ad->activite6=$activite[intval($ad->activite6)];if ($ad->activite6 !="Pas d'activité") array_push($aa,$ad->activite6);
+    $ad->activite1=getoption($optionsactivite,$ad->activite1);if ($ad->activite1 !="Pas d'activité") array_push($aa,$ad->activite1);
+    $ad->activite2=getoption($optionsactivite,$ad->activite2);if ($ad->activite2 !="Pas d'activité") array_push($aa,$ad->activite2);
+    $ad->activite3=getoption($optionsactivite,$ad->activite3);if ($ad->activite3 !="Pas d'activité") array_push($aa,$ad->activite3);
+    $ad->activite4=getoption($optionsactivite,$ad->activite4);if ($ad->activite4 !="Pas d'activité") array_push($aa,$ad->activite4);
+    $ad->activite5=getoption($optionsactivite,$ad->activite5);if ($ad->activite5 !="Pas d'activité") array_push($aa,$ad->activite5);
+    $ad->activite6=getoption($optionsactivite,$ad->activite6);if ($ad->activite6 !="Pas d'activité") array_push($aa,$ad->activite6);
     $ad->getcodes($tact);
     //print_r($ad->activite1);echo "<br>";
     $act = explode("=",substr($ad->activites,1));

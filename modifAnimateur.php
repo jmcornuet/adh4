@@ -16,28 +16,25 @@
 </head>
 <body onload="resizemenu()" onresize="resizemenu()">
 	<?php 
-        include("menus.php"); 
+        include("menus.php");
+        include("liOptions.php"); 
 	    include("animateurs.inc");
 	    include("gract.inc");
 	    $an = new Animateur;
 	    $an->getpost();
-	    $an->id = $an->idanim($tani);
-	    $rep = $an->modifie($tani);
-	    if (!$rep) echo "</br></br><div class='alerte'>La fiche de $an->prenom $a->nom n'a pas pu être modifiée dans la base de données coucou !!!</div>";
-	    else {
-		    $gr = new Gracts;
-		    $gr->getpost();
-		    $rep = true;
-	        for ($i=0;$i<$gr->n;$i++) {
-	        	$gr->gract[$i]->getcodactivite($tact);
-        		$gr->gract[$i]->idanimateur = $an->id;
-	        	//echo $gr->gract[$i]->id."-  -".$gr->gract[$i]->activite."-  -".$gr->gract[$i]->codactivite."-  -".$gr->gract[$i]->idanimateur."-  ".$gr->gract[$i]->groupe."  ".$gr->gract[$i]->lieu."  ".$gr->gract[$i]->jour."  ".$gr->gract[$i]->debut."  ".$gr->gract[$i]->fin." <br>";
-        		$r = $gr->gract[$i]->modifie($tact);
-        		$rep = ($rep and $r);
-	        }
-	        if ($rep) echo "</br></br><div class='alerte'>La fiche de $an->prenom $an->nom a bien été modifiée dans la base de données </div>";
-
-    	}
+	    $n = $_POST['ngract'];
+	    $ga = new Gracts;
+	    $ga->getpost2($n);
+	    $rep = $an->modifie($tani);//if ($rep) echo "modification animateur OK<br>"; else echo "modification animateur NOT OK<br>";
+	    for ($i=0;$i<$ga->n;$i++){
+	    	$ga->gract[$i]->activite=getoption($optionsactivite,$ga->gract[$i]->codactivite);
+	    	$ga->gract[$i]->idanimateur = $an->id;
+	    	$ga->gract[$i]->animateur = $an->animateur;//print_r($ga);echo "<br>";
+	    	$r = $ga->gract[$i]->modifie($tact);// if ($r) echo "modification activite OK<br>"; else echo "modification activite NOT OK<br>";
+	    	$rep = ($rep && $r);
+	    }
+	    if ($rep) echo "</br></br><div class='alerte'>La fiche de $an->prenom $an->nom a bien été modifiée dans la base de données </div>";
+	    else echo "</br></br><div class='alerte'>La fiche de $an->prenom $a->nom n'a pas pu être modifiée dans la base de données coucou !!!</div>";    	
 	?>
 </body>
 </html>

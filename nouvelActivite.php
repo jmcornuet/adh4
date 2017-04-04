@@ -40,10 +40,11 @@
 			<br><br>
 			<table  class="saisie">
                 <tr>
-                    <th>Animateur</th><th>Groupe</th><th>Lieu</th><th>Jour</th><th>Début</th><th>Fin</th>
+                    <th>Animateur</th><th>Responsable</th><th>Groupe</th><th>Lieu</th><th>Jour</th><th>Début</th><th>Fin</th>
                 </tr>
                 <tr>
-                    <td><select name="animateur"> <?php echo $optionsanimateur ?></select></td>
+                    <td><select name="idanimateur"> <?php echo $optionsanimateur ?></select></td>
+                    <td><select name="idresponsable"> <?php echo $optionsresponsable ?></select></td>
                     <td><select name="groupe"> <?php echo $optionsgroupe ?></select> </td>
                     <td><select name="lieu"> <?php echo $optionslieu ?></select></td>
                     <td><select name="jour"> <?php echo $optionsjour ?></select></td>

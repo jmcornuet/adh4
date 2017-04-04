@@ -22,7 +22,14 @@
                 buttons: [{ value: "ANNULER" }, { value: "SUPPRIMER" }],
                 success: function (result) {
                     if (result == "SUPPRIMER") {
-                        
+                        var formulaire = document.createElement('form');
+                        formulaire.setAttribute('action','supprimAnimateur.php');
+                        formulaire.setAttribute('method', 'post');
+                        var input0 = document.createElement('input');
+                        input0.setAttribute('type','hidden');input0.setAttribute('name','id');input0.setAttribute('value',id);
+                        formulaire.appendChild(input0);
+                        document.body.appendChild(formulaire);
+                        formulaire.submit();                        
                     }
                 }
             });
@@ -77,7 +84,7 @@
 <div class="champ">
     <fieldset class="champemprunteurs">
         <form name="formemprunteurs" action="modifAnimateur.php" method="post">
-                <input type="hidden" name="id" value= <?php echo $id ?> >
+                <input type="hidden" name="id" value= <?php echo $an->id ?> >
                 <input type="hidden" name="ngract" value= <?php echo $gracts->n ?> >
             <table  class="saisie">
                 <tr>
@@ -116,7 +123,7 @@
             ?>           
                         <tr>
                             <td> <input type="hidden" name=<?php echo "id".strval($i)?> value="<?php echo $gracts->gract[$i]->id ?>"></td>
-                            <td><select name=<?php echo "activite".strval($i) ?> > <?php echo $optionsac[$i] ?></select></td>
+                            <td><select name=<?php echo "codactivite".strval($i) ?> > <?php echo $optionsac[$i] ?></select></td>
                             <td><select name=<?php echo "groupe".strval($i) ?> > <?php echo $optionsgr[$i] ?></select> </td>
                             <td><select name=<?php echo "lieu".strval($i) ?> > <?php echo $optionsli[$i] ?></select></td>
                             <td><select name=<?php echo "jour".strval($i) ?> > <?php echo $optionsjo[$i] ?></select></td>
@@ -130,7 +137,7 @@
             </table></br>
              <input type="submit" name="modif" value="MODIFIER">
         </form> </br>
-        <button class="bouton"  style="float:right" onclick="supprim(<?php echo $id ?>)">SUPPRIMER</button>
+        <button class="bouton"  style="float:right" onclick="supprim(<?php echo $an->id ?>)">SUPPRIMER</button>
 
     </fieldset>
 </div>

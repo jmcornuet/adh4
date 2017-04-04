@@ -23,10 +23,10 @@
 			<table  class="saisie">
 				<tr>
 					<td><label for "activite">Activité :</label></td>
-					<td><select name="activite"><?php echo $optionsactivite ?> </select></td>
+					<td><select name="codactivite"><?php echo $optionsactivite ?> </select></td>
 					<td>   </td>
 					<td><label for "groupe">Groupe :</label></td>
-					<td><select name="groupe"><?php echo $optionsgroupe1 ?> </select></td>
+					<td><select name="groupe"><?php echo $optionsgroupe ?> </select></td>
 
 				</tr>
 				<tr>
@@ -74,7 +74,7 @@
 				<tr>
 					<td></td>
 					<td>Animateur:</td>
-					<td><select name="animateur"><?php echo $optionsanimateur ?></select> 
+					<td><select name="idanimateur"><?php echo $optionsanimateur ?></select> 
 					<td></td>
 					<td></td>
 					<td></td>
@@ -90,7 +90,7 @@
 				<tr>
 					<td></td>
 					<td>Responsable:</td>
-					<td><select name="responsable"><?php echo $optionsresponsable ?></select> 
+					<td><select name="idresponsable"><?php echo $optionsresponsable ?></select> 
 					<td></td>
 					<td></td>
 					<td></td>

@@ -18,15 +18,15 @@
 	    include("liOptions.php");
 	    $ad = new Adherent;
 	    $ad->getpost();
-        $ad->activite1=$activite[intval($ad->activite1)];
-        $ad->activite2=$activite[intval($ad->activite2)];
-        $ad->activite3=$activite[intval($ad->activite3)];
-        $ad->activite4=$activite[intval($ad->activite4)];
-        $ad->activite5=$activite[intval($ad->activite5)];
-        $ad->activite6=$activite[intval($ad->activite6)];
+        $ad->activite1=getoption($optionsactivite,$ad->activite1);
+        $ad->activite2=getoption($optionsactivite,$ad->activite2);
+        $ad->activite3=getoption($optionsactivite,$ad->activite3);
+        $ad->activite4=getoption($optionsactivite,$ad->activite4);
+        $ad->activite5=getoption($optionsactivite,$ad->activite5);
+        $ad->activite6=getoption($optionsactivite,$ad->activite6);
 	    $ad->getcodes($tact);
-	    $ad->insere($tadh);
-	    if ($ad->id>0) echo "</br></br><div class='alerte'>La fiche de $ad->prenom $ad->nom a été ajoutée à la base de données avec l'id $ad->id </div>";
+	    $OK=$ad->insere($tadh);
+	    if ($OK) echo "</br></br><div class='alerte'>La fiche de $ad->prenom $ad->nom a été ajoutée à la base de données avec l'id $ad->id </div>";
 	    else echo "</br></br><div class='alerte'>La fiche de $ad->prenom $ad->nom n'a pas pu être ajoutée à la base de données !!!</div>";
 
 	?>

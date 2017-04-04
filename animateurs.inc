@@ -1,11 +1,44 @@
 <?php
 require_once("MGENconfig.php");
+    function writefileani($tani) {
+        $M = new MConf;
+        $sql="SELECT * FROM $tani ORDER BY nom";
+        $reponse = $M->querydb($sql);
+        $id1=array();$nom1=array();$prenom1=array();
+        while ($donnees = $reponse->fetch()) {
+            array_push($id1,$donnees['id']);
+            array_push($nom1,$donnees['nom']);
+            array_push($prenom1,$donnees['prenom']);            
+        }
+        $options="";
+        for($i=0;$i<count($id1);$i++) {
+            $options = $options."<option value=".$id1[$i].">".$nom1[$i]." ".$prenom1[$i]."</option>";
+        }
+        file_put_contents("listani.txt",$options);
+        $M=null;
+    }
+
+    function compacte($s0) {
+    	$s1="";
+    	for ($i=0;$i<strlen($s0);$i++) {
+    		$c=substr($s0,$i,1);
+    		if ($c != " ") $s1 .=$c;
+    	}
+    	return $s1;
+    }
+    function formatel($s0) {
+		if (strlen($s0)==10) {
+			$s1 = substr($s0,-10,2);
+			for ($i=4;$i>0;$i--) $s1 .=" ".substr($s0,-2*$i,2); 
+		} else $s1=$s0;
+		return $s1;
+    }
 	class Animateur {
 		public $id;
 		public $nom;
-		public $tanirenom;
+		public $prenom;
 		public $telephone;
-		public $taniortable;
+		public $portable;
 		public $courriel;
 		public $benevole;
 		public $animateur;
@@ -22,6 +55,7 @@ require_once("MGENconfig.php");
 			else $this->animateur=$this->prenom." ".$this->nom;
 		}
 		public function getani($tani) {
+			//echo "id=".$this->id."   tani=".$tani."<br>";
 			$M = new MConf;
 			$sql = "SELECT * FROM $tani WHERE id=$this->id";
 		    $reponse=$M->querydb($sql);
@@ -30,8 +64,8 @@ require_once("MGENconfig.php");
 				$this->id=$donnees['id'];
 				$this->nom=$donnees['nom'];
 				$this->prenom=$donnees['prenom'];
-				$this->telephone=$donnees['telephone'];
-				$this->portable=$donnees['portable'];
+				$this->telephone=formatel($donnees['telephone']);
+				$this->portable=formatel($donnees['portable']);
 				$this->courriel=$donnees['courriel'];
 				$this->benevole=$donnees['benevole'];
 			}
@@ -58,27 +92,36 @@ require_once("MGENconfig.php");
 
 		public function supprime($tani) {
 			$M = new MConf;
-			$sql = "DELETE FROM $tani WHERE id=this->id";
-		    $reponse=$M->querydb($sql);
+			$sql = "DELETE FROM $tani WHERE id=$this->id";//echo $sql."<br>";
+		    $reponse=$M->querydb($sql);//if ($reponse) echo "reponse=true<br>"; else echo "reponse=false<br>";
 		    $M->close();
+		    writefileani($tani);
+		    return $reponse;
 		}
 		public function modifie($tani) {
 			$M = new MConf;
 			$this->animateur = $this->prenom." ".$this->nom;
+			$this->telephone=compacte($this->telephone);
+			$this->portable=compacte($this->portable);
 			$sql = "UPDATE $tani SET nom='$this->nom', prenom='$this->prenom', telephone='$this->telephone', portable='$this->portable', courriel='$this->courriel', benevole='$this->benevole', animateur='$this->animateur' WHERE id=$this->id";
 			//echo $sql."<br>";
 		    $reponse=$M->querydb($sql);
 		    //if ($reponse) echo "Modification effectuee<br>";
 		    $M->close();
+		    writefileani($tani);
 		    return $reponse;
 		}
 		public function insere($tani) {
 			$M = new MConf;
+			$this->telephone=compacte($this->telephone);
+			$this->portable=compacte($this->portable);
 			$sql = "INSERT INTO $tani (nom, prenom, telephone, portable, courriel, benevole, animateur)";
 			$sql .=" VALUES ('$this->nom', '$this->prenom', '$this->telephone', '$this->portable', '$this->courriel', '$this->benevole', '$this->animateur')";
 		    $reponse=$M->querydb($sql);
-		    $this->id=$M->lastId();
+		    $this->id=$M->lastId($tani);
 		    $M->close();
+		    writefileani($tani);
+		    return $response;
 		}
 
 	}
@@ -98,8 +141,8 @@ require_once("MGENconfig.php");
 				$a->id = $donnees['id'];
 				$a->nom = $donnees['nom'];
 				$a->prenom = $donnees['prenom'];
-				$a->telephone = $donnees['telephone'];
-				$a->portable = $donnees['portable'];
+				$a->telephone = formatel($donnees['telephone']);
+				$a->portable = formatel($donnees['portable']);
 				$a->courriel = $donnees['courriel'];
 				$a->benevole = $donnees['benevole'];
 				$a->animateur = $donnees['animateur'];
@@ -118,8 +161,8 @@ require_once("MGENconfig.php");
 				$a->id=$donnees['id'];
 				$a->nom=$donnees['nom'];
 				$a->prenom=$donnees['prenom'];
-				$a->telephone=$donnees['telephone'];
-				$a->portable=$donnees['portable'];
+				$a->telephone=formatel($donnees['telephone']);
+				$a->portable=formatel($donnees['portable']);
 				$a->courriel=$donnees['courriel'];
 				$a->benevole=$donnees['benevole'];
 				array_push($this->ani, $a);
