@@ -18,7 +18,7 @@
   			console.log("jQuery est prêt !");
 		});  		
     	function imprim(num) {
-			var iact = document.forms["formactivite"]["activite"].value;//console.log("iact = "+iact);
+			var codact = document.forms["formactivite"]["activite"].value;//console.log("iact = "+iact);
 			var groupe = document.forms["formactivite"]["groupe"].value;//console.log("groupe = "+groupe);
 			//var participa = (num === 'avec');
 			jQuery.msgBox({ type: "confirm",
@@ -34,7 +34,7 @@
 			    		formulaire.setAttribute('action','imprimliste.php');
 			    		formulaire.setAttribute('method', 'post');
 			    		var input0 = document.createElement('input');
-			    		input0.setAttribute('type','hidden');input0.setAttribute('name','activite');input0.setAttribute('value',iact);
+			    		input0.setAttribute('type','hidden');input0.setAttribute('name','activite');input0.setAttribute('value',codact);
 			    		formulaire.appendChild(input0);
 			    		var input1 = document.createElement('input');
 			    		input1.setAttribute('type','hidden');input1.setAttribute('name','groupe');input1.setAttribute('value',groupe);

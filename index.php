@@ -30,7 +30,8 @@ $.msgBox({ type: "prompt",
     success: function (result, values) {
         if (result=="Connexion") {
             var formulaire = document.createElement('form');
-            formulaire.setAttribute('action', 'authen.php');
+            //formulaire.setAttribute('action', 'authen.php');
+            formulaire.setAttribute('action', 'authencrypt.php');
             formulaire.setAttribute('method', 'post');
             var elem1,elem2;
             var i=0;

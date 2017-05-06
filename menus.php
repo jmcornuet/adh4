@@ -50,7 +50,7 @@
 			<a href="#">Outils</a>
 			<ul>
 				<li><a href="planning.php">Planning</a></li>
-				<li><a href="#">Statistiques</a></li>
+			<!--	<li><a href="#">Statistiques</a></li> -->
 				<li><a href="participants.php">Participants</a></li>
 				<li><a href="listepresence.php">Liste de présence</a></li>
 			</ul>

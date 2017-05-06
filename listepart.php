@@ -14,14 +14,14 @@
 <body onload="resizemenu()" onresize="resizemenu()">
 	<script type="text/javascript">
 		function imprim() {
-			var iact = document.forms["formbidon"]["iact"].value;
+			var codact = document.forms["formbidon"]["codact"].value;
 			var groupe = document.forms["formbidon"]["groupe"].value;
  			var formulaire = document.createElement('form');
 			formulaire.setAttribute('target','_blank');
 			formulaire.setAttribute('action','imprimActivite.php');
 			formulaire.setAttribute('method', 'post');
     		var input0 = document.createElement('input');
-    		input0.setAttribute('type','hidden');input0.setAttribute('name','activite');input0.setAttribute('value',iact);
+    		input0.setAttribute('type','hidden');input0.setAttribute('name','activite');input0.setAttribute('value',codact);
     		formulaire.appendChild(input0);
     		var input1 = document.createElement('input');
     		input1.setAttribute('type','hidden');input1.setAttribute('name','groupe');input1.setAttribute('value',groupe);
@@ -35,13 +35,11 @@
 		include("liOptions.php");
 		include ("gract.inc");
 		include ("adherents.inc");
-		include("animateurs.inc"); 
-		$iact = $_POST['activite'];
-		$grou = $_POST['groupe']; 
-		$act = $activite[$iact];// echo $act." - ".$grou."<br>";
+		include("animateurs.inc");
+		$codact = $_POST['codactivite'];
+		$grou = $_POST['groupe'];
 		$gra = new Gract;
-		$gra->activite = $act;
-		$gra->getcodactivite($tact);//echo $gra->codactivite."<br>";
+		$gra->codactivite = $codact;
 		$gra->groupe = $grou;
 		$gra->getid($tact);
 		$gra->getgract($tact);
@@ -57,7 +55,7 @@
 
 	?>
 	<form name="formbidon" >
-		<input type="hidden" name="iact" value="<?php echo $iact ?>" >
+		<input type="hidden" name="codact" value="<?php echo $codact ?>" >
 		<input type="hidden" name="groupe" value="<?php echo $grou ?>" >
 	</form> 
 	<div id="controle"><div>

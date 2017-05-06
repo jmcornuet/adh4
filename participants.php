@@ -26,7 +26,7 @@
 				<table  class="saisie">
 					<tr>
 						<td><label for "activite">Activité :</label></td>
-						<td><select id="activite" name="activite"><?php echo $optionsactivite ?> </select></td>
+						<td><select name="codactivite"><?php echo $optionsactivite ?> </select></td>
 						<td>   </td>
 						<td><label for "groupe">Groupe :</label></td>
 						<td><select id="groupe" name="groupe"><?php echo $optionsgroupe1 ?> </select></td>

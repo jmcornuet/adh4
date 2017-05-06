@@ -236,6 +236,29 @@ require_once("MGENconfig.php");
 			$this->n=$i;
 			$M->close();			
 		}
+
+		public function cree1($tact) {
+			$M = new MConf; 
+			$sql = "SELECT * FROM $tact";
+	        $reponse=$M->querydb($sql);
+	        $i=0;$this->gract=array();
+	        while ($donnees = $reponse->fetch()) {
+				$a = new Gract;
+				$a->id = $donnees['id'];
+				$a->activite = $donnees['activite'];
+				$a->groupe = $donnees['groupe'];
+				$a->lieu = $donnees['lieu'];
+				$a->jour = $donnees['jour'];
+				$a->debut = $donnees['debut'];
+				$a->fin = $donnees['fin'];
+				$a->idanimateur = $donnees['idanimateur'];
+				array_push($this->gract, $a);
+				$i++;
+			}
+			$this->n=$i;
+			$M->close();			
+		}
+
 		public function getpost($n) {
 			//echo "dans getpost ng=".$n."<br>";
 			$this->gract=array();
