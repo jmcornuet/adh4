@@ -17,6 +17,9 @@
 <body onload="resizemenu()" onresize="resizemenu()">
 	<?php 	
 		include("menus.php");
+		include("adherents.inc");writefileadh($tadh);
+		include("gract.inc");writefileact($tact);
+		include("animateurs.inc");writefileani($tani);		
 	?>
  </body>
  </html>

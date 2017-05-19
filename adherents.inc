@@ -1,5 +1,6 @@
 <?php
 	require_once("MGENconfig.php");
+	if (PHP_OS == "Darwin") $basedir=""; else $basedir="/var/www/html/adh/";
     function transprenom($p) {
         $fp=explode(" ",$p);
         for ($j=0;$j<count($fp);$j++) {
@@ -48,7 +49,7 @@
     	for($i=0;$i<count($id1);$i++) {
         	$optionspersonne = $optionspersonne."<option value=".$id1[$i].">".$nom1[$i]." ".$prenom1[$i]."</option>";
     	}
-    	file_put_contents("listadh.txt",$optionspersonne);
+    	file_put_contents($basedir."listadh.txt",$optionspersonne);
     	$M1 = null;
     }
 
@@ -215,8 +216,11 @@
 	    	$sql1 = " VALUES (";
 	    	$sql0 .="titre,qualite,nom,prenom,adresse,codepostal,ville,";
 	    	$sql1 .="'$this->titre','$this->qualite','$this->nom','$this->prenom','$this->adresse',$this->codepostal,'$this->ville',";
-	    	$sql0 .="numMGEN,assurance,numeroSS,profession,premannee,activites,prenomnom,cotisation,";
-	    	$sql1 .="$this->numMGEN,'$this->assurance','".compacte($this->numeroSS)."','$this->profession',$this->premannee,'$this->activites','$this->prenomnom',$this->cotisation,";
+	    	$sql0 .="profession,premannee,activites,prenomnom,cotisation,";
+	    	$sql1 .="'$this->profession',$this->premannee,'$this->activites','$this->prenomnom',$this->cotisation,";
+			if (strlen($this->numMGEN)>0) {$sql0 .="numMGEN,";$sql1 .="'$this->numMGEN',";}
+			if (strlen($this->assurance)>0) {$sql0 .="assurance,";$sql1 .="'$this->assurance',";}
+			if (strlen($this->numeroSS)>0) {$sql0 .="numeroSS,";$sql1 .="'".compacte($this->numeroSS)."',";}
 	    	if (strlen($this->nomjf)>0) {$sql0 .="nomjf,";$sql1 .="'$this->nomjf',";}
 	    	if (strlen($this->telephone)>0) {$sql0 .="telephone,";$sql1 .="'".compacte($this->telephone)."',";}
 	    	if (strlen($this->portable)>0) {$sql0 .="portable,";$sql1 .="'".compacte($this->portable)."',";}
@@ -315,7 +319,10 @@
         			$trouve=($act[$i] == $nomactivite[$j]);
 			        if (!$trouve) $j++;
     			}
-	      		if ($trouve) $this->activites .="=".$codactivite[$j]."-".$gro[$i]."-".$par[$i];
+	      		if ($trouve) {
+	      			if (strlen($codactivite[$j])<2) $this->activites .="=0".$codactivite[$j]."-".$gro[$i]."-".$par[$i];
+	      			else $this->activites .="=".$codactivite[$j]."-".$gro[$i]."-".$par[$i];
+	      		}
 	      		 
     		}
     		if (strlen($this->activites)<1) $this->activites="=00";

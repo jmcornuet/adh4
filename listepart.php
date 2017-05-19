@@ -46,10 +46,11 @@
 		$an = new Animateur;
 		$an->id = $gra->idanimateur;
 		$an->getani($tani);//echo $an->prenom." ".$an->nom."<br>";
-		$req = "%".$gra->codactivite."-".strval($grou)."%";
+		if ($gra->codactivite<10) $req = "%0".strval($gra->codactivite)."-".strval($grou)."%";
+		else $req = "%".strval($gra->codactivite)."-".strval($grou)."%";
 		$N = new MConf;
 		$sql = "SELECT * FROM $tadh WHERE activites LIKE '$req' ORDER BY nom";
-		//echo $sql."<br>";
+		echo $sql."<br>";
 		$ad = new Adherents;
 		$ad->cherche($sql,$tact);
 

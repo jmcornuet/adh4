@@ -36,7 +36,7 @@
 					<td><label for="prenom">Prénom : </label></td>
 					<td><input id="prenom" type="text" size=40 name="prenom" class="fichinput" onfocus="blanc(2)" onblur="test(2)"></td>
 					<td><label for="numMGEN">Numéro MGEN : </label></td>
-					<td><input id="numMGEN" type="text" size=10 name="numMGEN" class="fichinput" onfocus="blanc(3)" onblur="test(3)"></td>
+					<td><input id="numMGEN" type="text" size=10 name="numMGEN"></td>
 				</tr>
 				<tr>					
 					<td> </td>
@@ -69,14 +69,14 @@
 				<tr>					
 					<td> </td>			
 					<td><label for "assurance">Assurance :</label></td>
-					<td><input id="assurance" type="text" size=30 name="assurance" class="fichinput" onfocus="blanc(7)" onblur="test(7)"></td>
+					<td><input id="assurance" type="text" size=30 name="assurance" ></td>
 					<td><label for "specialite">Spécialité</label></td>
 					<td><input name="specialite" size=30 type="text"></td>
 				</tr>
 				<tr>					
 					<td> </td>			
 					<td><label for="numeroSS">Numéro S.S. : </label>  </td>
-					<td><input id="numeroSS" type="text" name="numeroSS" size=25 class="fichinput" onfocus="blanc(8)" onblur="test(8)"></td>
+					<td><input id="numeroSS" type="text" name="numeroSS" size=25 ></td>
 					<td><label for="cotisation">Cotisation : </label></td></td>
 					<td><input type="radio" name="cotisation" id="cotisationP" value=0>A jour &nbsp;&nbsp;&nbsp;
 					<input type="radio" name="cotisation" id="cotisationA" value=1>En attente </td>

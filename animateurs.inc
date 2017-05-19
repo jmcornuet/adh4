@@ -1,5 +1,6 @@
 <?php
-require_once("MGENconfig.php");
+	require_once("MGENconfig.php");
+	if (PHP_OS == "Darwin") $basedir=""; else $basedir="/var/www/html/adh/";
     function writefileani($tani) {
         $M = new MConf;
         $sql="SELECT * FROM $tani ORDER BY nom";
@@ -14,7 +15,7 @@ require_once("MGENconfig.php");
         for($i=0;$i<count($id1);$i++) {
             $options = $options."<option value=".$id1[$i].">".$nom1[$i]." ".$prenom1[$i]."</option>";
         }
-        file_put_contents("listani.txt",$options);
+        file_put_contents($basedir."listani.txt",$options);
         $M=null;
     }
 

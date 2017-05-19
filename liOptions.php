@@ -34,11 +34,12 @@
         $c=substr($b,0,strpos($b,"<"));
         return $c;
     }
-    $optionsactiv=file_get_contents("listact.txt");
+    if (PHP_OS == "Darwin") $basedir=""; else $basedir="/var/www/html/adh/"; 
+	$optionsactiv=file_get_contents($basedir."listact.txt");
     $optionsactivite="<option value=0>Pas d'activité</option>".$optionsactiv;
-    $optionspersonne=file_get_contents("listadh.txt");
+    $optionspersonne=file_get_contents($basedir."listadh.txt");
     $optionsresponsable ="<option value=0>Responsable</option>".$optionspersonne;
-    $optionsanim=file_get_contents("listani.txt");
+    $optionsanim=file_get_contents($basedir."listani.txt");
 	$optionsanimateur="<option value=0>Animateur</option>".$optionsanim;
 
 	$profession=["profession","non renseignée","Ens. primaire","Ens. secondaire","Ens. sup ou recherche","Administration","divers (Educ. nat.)","médicale/paramédicale","Industrie","Commerce ou artisanat","libérale","Femme au foyer"];

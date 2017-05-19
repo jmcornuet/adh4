@@ -168,12 +168,9 @@ function valide() {
 	var msg="Vous avez oublié d'indiquer : </br>";
 	if (document.forms["nouvelAd"]["nom"].value=="") {msg+="- le nom</br>";nb++;}
 	if (document.forms["nouvelAd"]["prenom"].value=="") {msg+="- le prénom</br>";nb++;}
-	if (document.forms["nouvelAd"]["numMGEN"].value=="") {msg+="- le numéro MGEN</br>";nb++;}
 	if (document.forms["nouvelAd"]["telephone"].value=="")	{msg+="- le téléphone</br>";nb++;}
 	if (document.forms["nouvelAd"]["adresse"].value=="") {msg+="- l'adresse</br>";nb++;}
 	if (document.forms["nouvelAd"]["codepostal"].value=="") {msg+="- le code postal</br>";nb++;}
-	if (document.forms["nouvelAd"]["assurance"].value=="") {msg+="- l'assurance</br>";nb++;}
-	if (document.forms["nouvelAd"]["numeroSS"].value=="") {msg+="- le numéro SS</br>";nb++;}
 	var a=document.forms["nouvelAd"]["titre"].selectedIndex;
 	if (a==0) {msg+="- le titre</br>";nb++;} 
 	var a=document.forms["nouvelAd"]["qualite"].selectedIndex;

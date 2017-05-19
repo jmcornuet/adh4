@@ -20,7 +20,7 @@
 		$pdf->Cell(70,6,utf8_decode('Fiche imprimée le '.strftime("%d %B %Y")),0,1,'L');		
 		$ad->nom = strtoupper($ad->nom);
 		$ad->prenom =transprenom($ad->prenom);
-		if ($ad->qualite=="M") $ad->numMGEN =$ad->numMGEN."A"; else $ad->numMGEN =$ad->numMGEN."C"; 
+		if ($ad->qualite=="M") $ad->numMGEN =$ad->numMGEN."M"; else $ad->numMGEN =$ad->numMGEN."C"; 
 		$pdf->SetFont('Arial','B',20);
 		$pdf->Ln(16);
 		$pdf->Cell(100,10,utf8_decode($nom." ".$prenom));
@@ -55,8 +55,7 @@
 		$pdf->Cell(70,6,utf8_decode('Fiche imprimée le '.strftime("%d %B %Y")),0,1,'L');		
 		$nom = strtoupper($ad->nom);
 		$prenom =transprenom($ad->prenom);
-		$numMGEN = $ad->numMGEN;
-		if ($ad->qualite=="M") $numMGEN =$numMGEN."A"; else $numMGEN =$numMGEN."C"; 
+		if ($ad->qualite=="M") $ad->numMGEN =$ad->numMGEN."M"; else $ad->numMGEN =$ad->numMGEN."C"; 
 		$pdf->Ln(20);
 		$pdf->SetFont('Arial','B',15);
 		$pdf->Cell(100,10,utf8_decode($nom." ".$prenom));

@@ -1,5 +1,6 @@
 <?php
-require_once("MGENconfig.php");
+	require_once("MGENconfig.php");
+	if (PHP_OS == "Darwin") $basedir=""; else $basedir="/var/www/html/adh/";
 	function arrayunique($a) {
 		$b=array();
 		for ($i=0;$i<count($a);$i++) {
@@ -30,7 +31,7 @@ require_once("MGENconfig.php");
         for($i=0;$i<count($codactivite);$i++) {
             $options = $options."<option value=".$codactivite[$i].">".$activite[$i]."</option>";
         }
-        file_put_contents("listact.txt",$options);
+        file_put_contents($basedir."listact.txt",$options);
         $M=null;
     }
 
