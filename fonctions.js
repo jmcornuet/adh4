@@ -98,7 +98,7 @@ function vrainumSS(s) {
 	return pat0.test(s); 
 }
 function valideAnimateur() {
-	document.getElementById("message").innerHTML="Début de la validation";
+	//document.getElementById("message").innerHTML="Début de la validation";
 	nb=0;
 	var msg="Vous avez oublié d'indiquer : </br>";
 	if (document.forms["nouvelAnimateur"]["nom"].value=="") {msg+="- le nom</br>";nb++;}
@@ -108,7 +108,7 @@ function valideAnimateur() {
 	if (a==0) {msg+="- le titre</br>";nb++;} 
 	var a=document.forms["nouvelAnimateur"]["benevole"].selectedIndex;
 	if (a==0) {msg+="- la qualité (bénévole ou payé)</br>";nb++;}
-		document.getElementById("message").innerHTML="nb ="+nb;
+	//	document.getElementById("message").innerHTML="nb ="+nb;
 	if (nb>0) {
 	    $.msgBox({
     		title:"Création d'une fiche Animateur",
