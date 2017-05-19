@@ -21,6 +21,7 @@
 	$resp = new Adherent;
 	$resp->id = $gra->idresponsable;
 	$resp->getadh($tadh);
+	if (!$resp->prenomnom) $resp->prenomnom=$resp->prenom." ".$resp->nom;
 	$an = new Animateur;
 	$an->id = $gra->idanimateur;
 	$an->getani($tani);
@@ -89,7 +90,10 @@ require('../fpdf.php');
 			for ($i=0;$i<$ad->n;$i++) {
 				$nomprenom = $ad->adh[$i]->nom." ".$ad->adh[$i]->prenom;
 				$pdf->Cell(60,8,utf8_decode($nomprenom),1,0,'L');
-				$pdf->Cell(20,8,utf8_decode($ad->adh[$i]->numMGEN),1,0,'C');
+				$numMGEN=utf8_decode($ad->adh[$i]->numMGEN);
+				if ($ad->adh[$i]->qualite=="M") $numMGEN.="M";
+				else $numMGEN.="C";
+				$pdf->Cell(20,8,$numMGEN,1,0,'C');
 				$pdf->Cell(24,8,"",1,0,'C');
 				for ($j=0;$j<13;$j++) $pdf->Cell(12,8,"",1,0,'C');
 				$pdf->Cell(12,8,"",1,1,'C');			
@@ -102,7 +106,10 @@ require('../fpdf.php');
 			for ($i=0;$i<$ad->n;$i++) {
 				$nomprenom = $ad->adh[$i]->nom." ".$ad->adh[$i]->prenom;
 				$pdf->Cell(60,8,utf8_decode($nomprenom),1,0,'L');
-				$pdf->Cell(20,8,utf8_decode($ad->adh[$i]->numMGEN),1,0,'C');
+				$numMGEN=utf8_decode($ad->adh[$i]->numMGEN);
+				if ($ad->adh[$i]->qualite=="M") $numMGEN.="M";
+				else $numMGEN.="C";
+				$pdf->Cell(20,8,$numMGEN,1,0,'C');
 				for ($j=0;$j<15;$j++) $pdf->Cell(12,8,"",1,0,'C');
 				$pdf->Cell(12,8,"",1,1,'C');
 			}
@@ -155,7 +162,10 @@ require('../fpdf.php');
 			for ($i=0;$i<$ad->n;$i++) {
 				$nomprenom = $ad->adh[$i]->nom." ".$ad->adh[$i]->prenom;
 				$pdf->Cell(60,8,utf8_decode($nomprenom),1,0,'L');
-				$pdf->Cell(20,8,utf8_decode($ad->adh[$i]->numMGEN),1,0,'C');
+				$numMGEN=utf8_decode($ad->adh[$i]->numMGEN);
+				if ($ad->adh[$i]->qualite=="M") $numMGEN.="M";
+				else $numMGEN.="C";
+				$pdf->Cell(20,8,$numMGEN,1,0,'C');
 				$pdf->Cell(24,8,"",1,0,'C');
 				for ($j=0;$j<23;$j++) $pdf->Cell(12,8,"",1,0,'C');
 				$pdf->Cell(12,8,"",1,1,'C');			
@@ -168,7 +178,10 @@ require('../fpdf.php');
 			for ($i=0;$i<$ad->n;$i++) {
 				$nomprenom = $ad->adh[$i]->nom." ".$ad->adh[$i]->prenom;
 				$pdf->Cell(60,8,utf8_decode($nomprenom),1,0,'L');
-				$pdf->Cell(20,8,utf8_decode($ad->adh[$i]->numMGEN),1,0,'C');
+				$numMGEN=utf8_decode($ad->adh[$i]->numMGEN);
+				if ($ad->adh[$i]->qualite=="M") $numMGEN.="M";
+				else $numMGEN.="C";
+				$pdf->Cell(20,8,$numMGEN,1,0,'C');
 				for ($j=0;$j<25;$j++) $pdf->Cell(12,8,"",1,0,'C');
 				$pdf->Cell(12,8,"",1,1,'C');
 			}

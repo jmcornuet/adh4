@@ -43,6 +43,10 @@
 		$gra->groupe = $grou;
 		$gra->getid($tact);
 		$gra->getgract($tact);
+		$resp = new Adherent;
+		$resp->id = $gra->idresponsable;
+		$resp->getadh($tadh);
+		if (!$resp->prenomnom) $resp->prenomnom=$resp->prenom." ".$resp->nom;
 		$an = new Animateur;
 		$an->id = $gra->idanimateur;
 		$an->getani($tani);//echo $an->prenom." ".$an->nom."<br>";
@@ -50,7 +54,7 @@
 		else $req = "%".strval($gra->codactivite)."-".strval($grou)."%";
 		$N = new MConf;
 		$sql = "SELECT * FROM $tadh WHERE activites LIKE '$req' ORDER BY nom";
-		echo $sql."<br>";
+		//echo $sql."<br>";
 		$ad = new Adherents;
 		$ad->cherche($sql,$tact);
 
@@ -59,30 +63,38 @@
 		<input type="hidden" name="codact" value="<?php echo $codact ?>" >
 		<input type="hidden" name="groupe" value="<?php echo $grou ?>" >
 	</form> 
-	<div id="controle"><div>
+<!--	<div id="controle"><div> -->
 	<table>
 		<tr>
 			<td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td>
 			<td></td>
-			<td id="activite" style="font-size:30px;color:blue"><?php echo $act ?></td>
-			<td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td>
-			<td> Groupe : </td>
-			<td id="groupe"><?php echo $grou ?></td>
+			<td id="activite" style="font-size:30px;color:blue"><?php echo $gra->activite ?></td>
+			<td>&nbsp;&nbsp;</td>
+			<td style="text-align:right"> Groupe : </td>
+			<td id="groupe" style="text-align:left"><?php echo $grou ?></td><td>&nbsp;&nbsp;</td>
 			<td><button id="bouton1" class="bouton"  style="float:right" onclick="imprim()">IMPRIMER</button></td> 
 		</tr>
 		<tr>
 			<td>&nbsp;&nbsp;</td>
-			<td>Animateur : </td> <td></td>
+			<td>Animateur : </td>
 			<td style="font-size:24px"><?php echo $an->prenom." ".$an->nom ?> </td>
-			<td></td><td></td>
-			<td></td>				
+			<td></td> 
+			<td style="text-align:right">Lieu : </td> <td style="text-align:left"><?php echo $gra->lieu."       " ?></td> 
 		</tr>
-		<tr> 
-			<td>Lieu : </td> <td><?php echo $gra->lieu."       " ?></td> 
+		<tr>
+			<td>&nbsp;&nbsp;</td>
+			<td>Responsable : </td> 
+			<td style="font-size:24px"> <?php echo $resp->prenomnom ?> </td>
+			<td></td>
+			<td style="text-align:right"> Horaire : </td><td style="text-align:left"><?php echo $gra->jour."   ".$gra->debut." - ".$gra->fin ?></td>
+							
+		</tr>
+<!--		<tr> 
+			<td>&nbsp;&nbsp;</td>
 			<td style="text-align:right">Jour : </td> <td style="text-align:left"><?php echo $gra->jour."       " ?></td> 
 			<td style="text-align:right">Début : </td> <td style="text-align:left"><?php echo $gra->debut."     " ?></td> 
 			<td style="text-align:right">Fin : </td> <td style="text-align:left"><?php echo $gra->fin ?></td> 
-		</tr>
+		</tr> -->
 	</table>
 	<br>
 	<table class="tablepart">
