@@ -35,7 +35,7 @@
 					<td><select id="qualite" name="qualite"><option value="Qualite">Qualité</option><option value="M">Mutualiste</option><option value="C">Ayant-droit</option></select> </td>			
 					<td><label for="prenom">Prénom : </label></td>
 					<td><input id="prenom" type="text" size=40 name="prenom" class="fichinput" onfocus="blanc(2)" onblur="test(2)"></td>
-					<td><label for="numMGEN">Numéro MGEN : </label></td>
+					<td><label for="numMGEN">Numéro Club : </label></td>
 					<td><input id="numMGEN" type="text" size=10 name="numMGEN"></td>
 				</tr>
 				<tr>					

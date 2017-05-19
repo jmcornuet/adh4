@@ -181,7 +181,7 @@
 			if ($this->assurance != $donnees['assurance']) $sql .=" assurance='".addslashes($this->assurance)."',";
 			if ($this->profession != $donnees['profession']) $sql .=" profession='".addslashes($this->profession)."',";
 			if ($this->specialite != $donnees['specialite']) $sql .=" specialite='".addslashes($this->specialite)."',";
-			if ($this->numMGEN != $donnees['numMGEN']) $sql .=" numMGEN='$this->numMGEN',";
+			if ($this->numMGEN !== $donnees['numMGEN']) $sql .=" numMGEN='$this->numMGEN',";
 			if ($this->numeroSS != $donnees['numeroSS']) $sql .=" numeroSS='$this->numeroSS',";
 			if ($this->cotisation != $donnees['cotisation']) $sql .=" cotisation=$this->cotisation,";
 			if ($this->premannee != $donnees['premannee']) $sql .=" premannee=$this->premannee,";

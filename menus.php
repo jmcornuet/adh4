@@ -53,6 +53,7 @@
 			<!--	<li><a href="#">Statistiques</a></li> -->
 				<li><a href="participants.php">Participants</a></li>
 				<li><a href="listepresence.php">Liste de présence</a></li>
+				<li><a href="imprimpartfi.php" target="_blank">Participation financière</a></li>
 			</ul>
 		</li>
 		<li>

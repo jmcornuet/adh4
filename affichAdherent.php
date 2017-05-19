@@ -110,7 +110,7 @@
 					<td><select name="qualite"><?php echo $optionsqualite ?></select> </td>			
 					<td><label for="prenom">Prénom : </label></td>
 					<td><input id="prenom" type="text" size=40 name="prenom" value="<?php echo $ad->prenom ?>" ></td>
-					<td><label for="numMGEN">Numéro MGEN : </label></td>
+					<td><label for="numMGEN">Numéro Club : </label></td>
 					<td><input id="numMGEN" type="text" size=10 name="numMGEN" value="<?php echo $ad->numMGEN ?>" ></td>
 				</tr>
 				<tr>					

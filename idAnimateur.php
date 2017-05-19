@@ -54,20 +54,24 @@
         	else $sql = $sql." AND courriel LIKE '%".$an->courriel."%'";
         }
         if (strlen($sql)<6) $sql="SELECT * FROM $tani";
+        $sql .=" ORDER BY nom";
         $an = new Animateurs;//echo $sql."<br>";
         $an->cherche($sql);
-        //echo "n=".$an->n;
+        $M = new MConf;
 		    if ($an->n<1) echo "</br></br><div class='alerte'>Aucun animateur trouvé</div>";
 		    else if ($an->n>1) {
 			 echo "<div class='alerte'>$an->n animateurs trouvés</div></br>"; 
-			 $mes ='<div id="divConteneur"> <table style="width:80%"><tr><th>Nom</th><th>Prénom</th><th>Téléphone</th><th>Portable</th><th>Courriel</th></tr>';
+			 $mes ='<div id="divConteneur"> <table style="width:80%"><tr><th>Nom</th><th>Prénom</th><th>Téléphone</th><th>Portable</th><th>Courriel</th><th>Activité</th></tr>';
     	 for ($i=0;$i<$an->n;$i++) {
+          $sql="SELECT activite FROM $tact WHERE idanimateur=".$an->ani[$i]->id;
+          $reponse=$M->querydb($sql);$donnees=$reponse->fetch();
    			  $mes =$mes.'<tr onclick="SelectAnimateur('.$an->ani[$i]->id.')">';
           $mes =$mes.'<td class="defaut">'.$an->ani[$i]->nom.'</td>';
           $mes =$mes.'<td class="defaut">'.$an->ani[$i]->prenom.'</td>';
 				  $mes =$mes.'<td class="defaut">'.$an->ani[$i]->telephone.'</td>';
           $mes =$mes.'<td class="defaut">'.$an->ani[$i]->portable.'</td>';
           $mes =$mes.'<td class="defaut">'.$an->ani[$i]->courriel.'</td>';
+          $mes =$mes.'<td class="defaut">'.$donnees['activite'].'</td>';
 				  $mes =$mes.'</tr>';
       }
 			$mes =$mes.'</table></div>';
@@ -80,6 +84,7 @@
       echo $mes;
 
     }
+    $M->close();
 		?>
 	 </div>
 	<div id="sortie"></div>

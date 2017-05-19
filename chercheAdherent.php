@@ -36,7 +36,7 @@
 					<td><label for="prenom">Prénom : </label></td>
 					<td><input id="prenom" type="text" size=30 name="prenom"></td>
 					<td> </td>
-					<td><label for="numMGEN">Numéro MGEN : </label></td>
+					<td><label for="numMGEN">Numéro Club : </label></td>
 					<td><input id="numMGEN" type="text" size=10 name="numMGEN"></td>
 				</tr>
 				<tr>					
