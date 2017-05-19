@@ -87,7 +87,7 @@
 					</tr>	
 				</table>
 					<br><br>
-					<input class="bouton" type="submit">					
+					<input class="bouton" type="submit" value="VALIDER">					
 			</form> 
 			<!--<button class="bouton"  onclick="imprim('avec')">Imprimer la liste avec la colonne "participation"</button> <br><br> 
 				<button class="bouton"  onclick="imprim('sans')">Imprimer la liste sans la colonne "participation"</button> -->

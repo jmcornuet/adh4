@@ -37,6 +37,10 @@
 		include ("adherents.inc");
 		include("animateurs.inc");
 		$codact = $_POST['codactivite'];
+		if ($codact==0) {
+			echo "Vous n'avez pas choisi d'activité <br>";
+			echo "<a href=";echo $_SERVER['HTTP_REFERER'];echo">Recommencez</a>";
+		}
 		$grou = $_POST['groupe'];
 		$gra = new Gract;
 		$gra->codactivite = $codact;
