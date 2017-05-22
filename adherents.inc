@@ -102,7 +102,7 @@
 		public $particip5a;
 		public $particip6a;
 
-		private	function arrayunique($a) {
+		private function arrayunique($a) {
 				$b=array();
 				for ($i=0;$i<count($a);$i++) {
 					if ($i==0) array_push($b,$a[0]);
@@ -337,8 +337,8 @@
 		    	array_push($codactivite,$donnees['codactivite']);
 		    }
 		    $M->close();
-		    $nomactivite=array_unique($nomactivite);
-		    $codactivite=array_unique($codactivite);
+		    $nomactivite=$this->arrayunique($nomactivite);
+		    $codactivite=$this->arrayunique($codactivite);
 
 		    $this->activite1="Pas d'activité";$this->activite2="Pas d'activité";$this->activite3="Pas d'activité";
 		    $this->activite4="Pas d'activité";$this->activite5="Pas d'activité";$this->activite6="Pas d'activité";

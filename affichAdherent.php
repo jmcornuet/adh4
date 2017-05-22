@@ -48,7 +48,7 @@
 		include("liOptions.php");
 		include("adherents.inc");
 		$ad = new Adherent;
-		$ad->id = $_POST['id'];//echo $ad->id."<br>";
+		$ad->id = $_POST['id'];
 		$ad->getadh($tadh);
 		$ad->getactivites($tact);
 		if ($ad->particip1=="P") $particip1="checked";else $particip1="";
@@ -83,7 +83,8 @@
 		$optionsactivite1 = putSelected3($optionsactivite,$ad->activite1);
 		$optionsactivite2 = putSelected3($optionsactivite,$ad->activite2);
 		$optionsactivite3 = putSelected3($optionsactivite,$ad->activite3);
-		$optionsactivite4 = putSelected3($optionsactivite,$ad->activite4);
+		$optionsactivite4 = putSelected3($optionsactivite,$ad->activite4);        	
+
 		$optionsactivite5 = putSelected3($optionsactivite,$ad->activite5);
 		$optionsactivite6 = putSelected3($optionsactivite,$ad->activite6);
 		$optionsgroupe1 = putSelected2($optionsgroupe,$ad->groupe1);
