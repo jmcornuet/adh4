@@ -39,7 +39,7 @@ if ($login!="" AND $pass!="") {
 		$_SESSION['prenom']=$donnees['prenom'];
 		$_SESSION['niveau']=$donnees['niveau'];
 		$_SESSION['nom']=$donnees['nom'];
-		setlocale(LC_TIME,'fr_FR.utf8','fra','fr_FR.ISO8859-1');
+		setlocale(LC_TIME, 'fr', 'fr_FR','fr_FR.UTF-8');
 		$_SESSION['debut']=utf8_encode(strftime("%d/%m/%g_%H:%M:%S"));
 		$_SESSION['version'] = "0.0.2";
 		$M->close();

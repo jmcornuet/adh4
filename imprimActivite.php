@@ -26,7 +26,6 @@
 	$ad->cherche($sql,$tact);
 
 require('../fpdf.php');
-	setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
 	$pdf = new FPDF();
 	$pdf->AddPage('P','A4');
 	$pdf->SetFont('Times','I',10);

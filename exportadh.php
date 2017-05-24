@@ -10,7 +10,6 @@
     $sql = "SELECT * FROM $tadh ORDER BY nom";
     $ad = new Adherents;
     $ad->cherche($sql);
-    setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
     $nomfichieradh="export/tadhexport_".strftime("%y%m%d").".csv";
     if (PHP_OS == "Darwin") $fp=fopen($nomfichieradh,"w");
     else $fp=fopen("/var/www/html/adh/".$nomfichieradh,"w");

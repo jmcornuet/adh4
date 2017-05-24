@@ -39,7 +39,6 @@
 	}
 
 require('../fpdf.php');
-	setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
 	$annee = strftime("%Y");
 	$mois = strftime("%B");
 	if(intval($mois)<8) $saison = strval(intval($annee)-1)."-".$annee;
