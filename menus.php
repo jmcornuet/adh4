@@ -49,8 +49,8 @@
 		<li>
 			<a href="#">Outils</a>
 			<ul>
-				<li><a href="planning.php">Planning</a></li>
-			<!--	<li><a href="#">Statistiques</a></li> -->
+				<li><a href="planning.php">Planning des salles</a></li>
+				<li><a href="planningAccueil.php" target="_blank">Planning de l'accueil</a></li>
 				<li><a href="participants.php">Participants</a></li>
 				<li><a href="listepresence.php">Liste de présence</a></li>
 				<li><a href="imprimpartfi.php" target="_blank">Participation financière</a></li>
